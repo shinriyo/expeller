@@ -86,8 +86,8 @@ bool Title::init()
     // add the label as a child to this layer
     this->addChild(pLabel, 1);
     
-    // add "HelloWorld" splash screen"
-    CCSprite* pSprite = CCSprite::create("HelloWorld.png");
+    // add "Game" splash screen"
+    CCSprite* pSprite = CCSprite::create("Title.png");
     
     // position the sprite on the center of the screen
     pSprite->setPosition( ccp(size.width/2, size.height/2) );
@@ -111,7 +111,7 @@ void Title::menuCloseCallback(CCObject* pSender)
 void Title::menuStartCallback(CCObject* pSender)
 {
     // run
-    CCDirector::sharedDirector()->replaceScene(HelloWorld::scene());
+    CCDirector::sharedDirector()->replaceScene(Game::scene());
 }
 
 void Title::menuOptionCallback(CCObject* pSender)

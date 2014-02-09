@@ -10,7 +10,7 @@
 #define __TileGame__TitleScene__
 
 #include "cocos2d.h"
-#include "HelloWorldScene.h"
+#include "GameScene.h"
 #include "OptionScene.h"
 
 class Title : public cocos2d::CCLayer
