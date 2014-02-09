@@ -64,9 +64,13 @@ bool Game::init()
     int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
     int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
     
+    CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Player.plist");
     _player = new CCSprite();
-    _player->initWithFile("Player.png");
+    _player->initWithSpriteFrameName("Player_r_1.png");
     _player->setPosition(ccp(x,y));
+    
+    // TODO:
+    this->setupPlayerAnimations();
     
     this->addChild(_player);
     this->setViewPointCenter(_player->getPosition());
@@ -74,6 +78,52 @@ bool Game::init()
     this->setTouchEnabled(true);
     
     return true;
+}
+
+void Game::setupPlayerAnimations()
+{
+    CCAnimation *pAnimationFront = CCAnimation::create();
+    CCAnimation *pAnimationBack  = CCAnimation::create();
+    CCAnimation *pAnimationLeft  = CCAnimation::create();
+    CCAnimation *pAnimationRight = CCAnimation::create();
+
+    CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();
+    CCSpriteFrame *frame;
+
+    // 手前 FRONT
+    frame = cache->spriteFrameByName("Player_d_1.png");
+    pAnimationFront->addSpriteFrame(frame);
+    frame = cache->spriteFrameByName("Player_d_2.png");
+    pAnimationFront->addSpriteFrame(frame);
+
+    // 上 BACK
+    frame = cache->spriteFrameByName("Player_u_1.png");
+    pAnimationBack->addSpriteFrame(frame);
+    frame = cache->spriteFrameByName("Player_u_2.png");
+    pAnimationBack->addSpriteFrame(frame);
+    
+    // 右
+    frame = cache->spriteFrameByName("Player_w_1.png");
+    pAnimationRight->addSpriteFrame(frame);
+    frame = cache->spriteFrameByName("Player_w_2.png");
+    pAnimationRight->addSpriteFrame(frame);
+    
+    // 左
+    // TODO:
+    frame = cache->spriteFrameByName("Player_w_1.png");
+    pAnimationLeft->addSpriteFrame(frame);
+    frame = cache->spriteFrameByName("Player_w_2.png");
+    pAnimationLeft->addSpriteFrame(frame);
+
+    pAnimationFront->setDelayPerUnit(0.5f);
+    pAnimationBack->setDelayPerUnit(0.5f);
+    pAnimationLeft->setDelayPerUnit(0.5f);
+    pAnimationRight->setDelayPerUnit(0.5f);
+    _animationCache = CCAnimationCache::sharedAnimationCache();
+    _animationCache->addAnimation( pAnimationFront, "FRONT" );
+    _animationCache->addAnimation( pAnimationBack,  "BACK" );
+    _animationCache->addAnimation( pAnimationLeft,  "LEFT" );
+    _animationCache->addAnimation( pAnimationRight, "RIGHT" );
 }
 
 void Game::setViewPointCenter(CCPoint position)
@@ -140,21 +190,30 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     
     CCPoint playerPos = _player->getPosition();
     CCPoint diff = ccpSub(touchLocation, playerPos);
+    _player->stopAllActions();
     
     if ( abs(diff.x) > abs(diff.y) ) {
+        runPlayerAcrion("RIGHT");
+        
         if (diff.x > 0) {
             // right
-            _player->setScaleX(1.0f);
+            _player->setFlipX(false);
             playerPos.x += _tileMap->getTileSize().width;
         } else {
             // left
-            _player->setScaleX(-1.0f);
+            _player->setFlipX(true);
             playerPos.x -= _tileMap->getTileSize().width;
         }
     } else {
         if (diff.y > 0) {
+            // up
+            // BACK
+            runPlayerAcrion("BACK");
             playerPos.y += _tileMap->getTileSize().height;
         } else {
+            // down
+            // FRONT
+            runPlayerAcrion("FRONT");
             playerPos.y -= _tileMap->getTileSize().height;
         }
     }
@@ -169,6 +228,13 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     }
     
     this->setViewPointCenter(_player->getPosition());
+}
+
+void Game::runPlayerAcrion(const char* name)
+{
+    CCAnimation *pAnimation = _animationCache->animationByName(name);
+    CCRepeatForever *pAction = CCRepeatForever::create( CCAnimate::create(pAnimation) );
+    _player->runAction(pAction);
 }
 
 CCPoint Game::tileCoordForPosition(CCPoint position)
