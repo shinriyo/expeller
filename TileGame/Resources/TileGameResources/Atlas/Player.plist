@@ -4,6 +4,32 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>Player_attack_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{29,29},{23,36}}</string>
+                <key>offset</key>
+                <string>{2,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{4,2},{23,36}}</string>
+                <key>sourceSize</key>
+                <string>{27,40}</string>
+            </dict>
+            <key>Player_attack_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{29,29},{23,36}}</string>
+                <key>offset</key>
+                <string>{2,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{4,2},{23,36}}</string>
+                <key>sourceSize</key>
+                <string>{27,40}</string>
+            </dict>
             <key>Player_back_1.png</key>
             <dict>
                 <key>frame</key>
@@ -59,7 +85,7 @@
             <key>Player_left_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{29,29},{23,36}}</string>
+                <string>{{67,27},{23,36}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
@@ -72,7 +98,7 @@
             <key>Player_left_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{67,27},{23,36}}</string>
+                <string>{{67,2},{23,36}}</string>
                 <key>offset</key>
                 <string>{-2,0}</string>
                 <key>rotated</key>
@@ -85,7 +111,7 @@
             <key>Player_right_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{67,2},{23,36}}</string>
+                <string>{{29,29},{23,36}}</string>
                 <key>offset</key>
                 <string>{2,0}</string>
                 <key>rotated</key>
@@ -118,7 +144,7 @@
             <key>size</key>
             <string>{128,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5e851b3f1a21cc77de9b82e005874b10:4998356d0c33d6a61f8691776adb6c61:18fcf80557a1b693f695decb3ad03513$</string>
+            <string>$TexturePacker:SmartUpdate:aa8637be5d2c8412b01b4a931f586e11:3c263c29df97f64c0dac044e90a7b0a8:18fcf80557a1b693f695decb3ad03513$</string>
             <key>textureFileName</key>
             <string>Player.png</string>
         </dict>

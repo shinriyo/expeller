@@ -42,7 +42,7 @@ public:
     void registerWithTouchDispatcher();
     
     void setPlayerPosition(CCPoint position);
-    
+    void setTileEffect(CCPoint position);
     bool ccTouchBegan(CCTouch *touch, CCEvent *event);
     
     void ccTouchEnded(CCTouch *touch, CCEvent *event);

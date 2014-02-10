@@ -86,6 +86,7 @@ void Game::setupPlayerAnimations()
     CCAnimation *pAnimationBack  = CCAnimation::create();
     CCAnimation *pAnimationLeft  = CCAnimation::create();
     CCAnimation *pAnimationRight = CCAnimation::create();
+    CCAnimation *pAnimationAttack = CCAnimation::create();
 
     CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();
     CCSpriteFrame *frame;
@@ -113,21 +114,29 @@ void Game::setupPlayerAnimations()
     pAnimationLeft->addSpriteFrame(frame);
     frame = cache->spriteFrameByName("Player_left_2.png");
     pAnimationLeft->addSpriteFrame(frame);
+    
+    // 攻撃
+    frame = cache->spriteFrameByName("Player_attack_1.png");
+    pAnimationAttack->addSpriteFrame(frame);
+    frame = cache->spriteFrameByName("Player_attack_2.png");
+    pAnimationAttack->addSpriteFrame(frame);
 
     pAnimationFront->setDelayPerUnit(0.5f);
     pAnimationBack->setDelayPerUnit(0.5f);
     pAnimationLeft->setDelayPerUnit(0.5f);
     pAnimationRight->setDelayPerUnit(0.5f);
+    pAnimationAttack->setDelayPerUnit(0.5f);
+    
     _animationCache = CCAnimationCache::sharedAnimationCache();
     _animationCache->addAnimation( pAnimationFront, "FRONT" );
     _animationCache->addAnimation( pAnimationBack,  "BACK" );
     _animationCache->addAnimation( pAnimationLeft,  "LEFT" );
     _animationCache->addAnimation( pAnimationRight, "RIGHT" );
+    _animationCache->addAnimation( pAnimationAttack, "ATTACK" );
 }
 
 void Game::setViewPointCenter(CCPoint position)
 {
-    
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     
     int x = MAX(position.x, winSize.width/2);
@@ -155,11 +164,6 @@ bool Game::ccTouchBegan(CCTouch *touch, CCEvent *event)
 
 void Game::setPlayerPosition(CCPoint position)
 {
-        _hud->setStageLabel(1, 1);
-    CCPoint point = ccpAdd(position, CCPoint(1, 1));
-    CCPoint tileCoord2 = this->tileCoordForPosition(point);
-    int tileGid2 = _meta->tileGIDAt(tileCoord2);
-
     CCPoint tileCoord = this->tileCoordForPosition(position);
     int tileGid = _meta->tileGIDAt(tileCoord);
     
@@ -171,6 +175,10 @@ void Game::setPlayerPosition(CCPoint position)
             *collision = *properties->valueForKey("Collidable");
             
             if (collision && (collision->compare("True") == 0)) {
+                // TODO:
+                CCSprite *sprite = _background->tileAt(tileCoord);
+                sprite->setColor(ccc3(255, 0, 0));
+                //sprite->setOpacity(2);
                 CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("hit.caf");
                 return;
             }
@@ -190,6 +198,44 @@ void Game::setPlayerPosition(CCPoint position)
     }
     _player->setPosition(position);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("move.caf");
+}
+
+void Game::setTileEffect(CCPoint position)
+{
+    // TODO:
+    // stage and area
+    _hud->setStageLabel(1, 1);
+    
+    // TODO:
+    // 0, 1
+//    CCPoint tileCoord = this->tileCoordForPosition(ccpAdd(position, CCPoint(0, 1)));
+    CCPoint tileCoord = this->tileCoordForPosition(position);
+    // 0, -1
+    // 1, 0
+    // -1, 0
+    // 1, 1
+    // -1, 1
+    // -1, -1
+    
+    int tileGid = _meta->tileGIDAt(tileCoord);
+    _meta->removeTileAt(tileCoord);
+
+    return;
+    CCSprite* pImg = _meta->tileAt(tileCoord);
+    pImg->setColor(ccc3(200,20,0));
+    
+    if (tileGid) {
+        CCNode *node = _tileMap->getChildByTag(tileGid);
+        if(node)
+        {
+            CCSprite* pImg = (CCSprite*)node;
+            // pImg->getTexture()->getName();
+            // http://miyachikantaro.blog.fc2.com/blog-date-201302.html
+            pImg->setColor(ccc3(200,20,0));
+        }
+        //CCTMXTilesetInfo *info = _background->getTileSet();
+        //CCGridBase *hoge = _foreground->getGrid();
+    }
 }
 
 void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
@@ -235,6 +281,7 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         playerPos.x >= 0 )
     {
         this->setPlayerPosition(playerPos);
+        //this->setTileEffect(playerPos);
     }
     
     this->setViewPointCenter(_player->getPosition());

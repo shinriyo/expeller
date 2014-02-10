@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>../Atlas/Player.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -127,7 +127,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>../Atlas/Player.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -174,6 +174,8 @@
             <filename>Player_left_2.png</filename>
             <filename>Player_right_1.png</filename>
             <filename>Player_right_2.png</filename>
+            <filename>Player_attack_1.png</filename>
+            <filename>Player_attack_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
