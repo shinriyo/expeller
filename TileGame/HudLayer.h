@@ -8,8 +8,8 @@ using namespace cocos2d;
 class HudLayer : public cocos2d::CCLayer
 {
 private:
-    CCLabelTTF *_label;
-    
+    CCLabelTTF *_collectedLabel;
+    CCLabelTTF *_stageLabel;
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
     virtual bool init();
@@ -23,7 +23,8 @@ public:
     // preprocessor macro for "static create()" constructor ( node() deprecated )
     CREATE_FUNC(HudLayer);
     
-    void numCollectedChanged (int numCollected);
+    void numCollectedChanged(int numCollected);
+    void setStageLabel(int area, int stage);
 };
 
 #endif // __HUDLAYER_H__

@@ -41,12 +41,13 @@ bool Game::init()
     // Area and Stage
     int stage = 1;
     int area = 1;
+
     CCString* tileMapStr = CCString::createWithFormat("TileMap_%d_%d.tmx", stage, area);
     CCLOG("%s", tileMapStr->getCString());
     _tileMap->initWithTMXFile(tileMapStr->getCString());
     _background = _tileMap->layerNamed("Background");
     _foreground = _tileMap->layerNamed("Foreground");
-    
+
     _meta = _tileMap->layerNamed("Meta");
     _meta->setVisible(false);
     
@@ -66,10 +67,9 @@ bool Game::init()
     
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Player.plist");
     _player = new CCSprite();
-    _player->initWithSpriteFrameName("Player_r_1.png");
+    _player->initWithSpriteFrameName("Player_right_1.png");
     _player->setPosition(ccp(x,y));
     
-    // TODO:
     this->setupPlayerAnimations();
     
     this->addChild(_player);
@@ -91,28 +91,27 @@ void Game::setupPlayerAnimations()
     CCSpriteFrame *frame;
 
     // 手前 FRONT
-    frame = cache->spriteFrameByName("Player_d_1.png");
+    frame = cache->spriteFrameByName("Player_front_1.png");
     pAnimationFront->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_d_2.png");
+    frame = cache->spriteFrameByName("Player_front_2.png");
     pAnimationFront->addSpriteFrame(frame);
 
     // 上 BACK
-    frame = cache->spriteFrameByName("Player_u_1.png");
+    frame = cache->spriteFrameByName("Player_back_1.png");
     pAnimationBack->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_u_2.png");
+    frame = cache->spriteFrameByName("Player_back_2.png");
     pAnimationBack->addSpriteFrame(frame);
     
     // 右
-    frame = cache->spriteFrameByName("Player_w_1.png");
+    frame = cache->spriteFrameByName("Player_right_1.png");
     pAnimationRight->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_w_2.png");
+    frame = cache->spriteFrameByName("Player_right_2.png");
     pAnimationRight->addSpriteFrame(frame);
     
     // 左
-    // TODO:
-    frame = cache->spriteFrameByName("Player_w_1.png");
+    frame = cache->spriteFrameByName("Player_left_1.png");
     pAnimationLeft->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_w_2.png");
+    frame = cache->spriteFrameByName("Player_left_2.png");
     pAnimationLeft->addSpriteFrame(frame);
 
     pAnimationFront->setDelayPerUnit(0.5f);
@@ -156,18 +155,29 @@ bool Game::ccTouchBegan(CCTouch *touch, CCEvent *event)
 
 void Game::setPlayerPosition(CCPoint position)
 {
+        _hud->setStageLabel(1, 1);
+    CCPoint point = ccpAdd(position, CCPoint(1, 1));
+    CCPoint tileCoord2 = this->tileCoordForPosition(point);
+    int tileGid2 = _meta->tileGIDAt(tileCoord2);
+
     CCPoint tileCoord = this->tileCoordForPosition(position);
     int tileGid = _meta->tileGIDAt(tileCoord);
+    
     if (tileGid) {
         CCDictionary *properties = _tileMap->propertiesForGID(tileGid);
         if (properties) {
+            // obstacle
             CCString *collision = new CCString();
             *collision = *properties->valueForKey("Collidable");
+            
             if (collision && (collision->compare("True") == 0)) {
                 CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("hit.caf");
                 return;
             }
+            
+            // item get
             CCString *collectible = new CCString();
+            
             *collectible = *properties->valueForKey("Collectable");
             if (collectible && (collectible->compare("True") == 0)) {
                 _meta->removeTileAt(tileCoord);
@@ -193,15 +203,15 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     _player->stopAllActions();
     
     if ( abs(diff.x) > abs(diff.y) ) {
-        runPlayerAcrion("RIGHT");
-        
         if (diff.x > 0) {
             // right
-            _player->setFlipX(false);
+            runPlayerAcrion("RIGHT");
+            //_player->setFlipX(false);
             playerPos.x += _tileMap->getTileSize().width;
         } else {
             // left
-            _player->setFlipX(true);
+            runPlayerAcrion("LEFT");
+            //_player->setFlipX(true);
             playerPos.x -= _tileMap->getTileSize().width;
         }
     } else {
