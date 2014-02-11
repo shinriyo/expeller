@@ -175,10 +175,6 @@ void Game::setPlayerPosition(CCPoint position)
             *collision = *properties->valueForKey("Collidable");
             
             if (collision && (collision->compare("True") == 0)) {
-                // TODO:
-                CCSprite *sprite = _background->tileAt(tileCoord);
-                sprite->setColor(ccc3(255, 0, 0));
-                //sprite->setOpacity(2);
                 CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("hit.caf");
                 return;
             }
@@ -205,37 +201,100 @@ void Game::setTileEffect(CCPoint position)
     // TODO:
     // stage and area
     _hud->setStageLabel(1, 1);
-    
-    // TODO:
-    // 0, 1
-//    CCPoint tileCoord = this->tileCoordForPosition(ccpAdd(position, CCPoint(0, 1)));
-    CCPoint tileCoord = this->tileCoordForPosition(position);
-    // 0, -1
-    // 1, 0
-    // -1, 0
-    // 1, 1
-    // -1, 1
-    // -1, -1
-    
-    int tileGid = _meta->tileGIDAt(tileCoord);
-    _meta->removeTileAt(tileCoord);
 
-    return;
-    CCSprite* pImg = _meta->tileAt(tileCoord);
-    pImg->setColor(ccc3(200,20,0));
+    CCPoint tileCoord = this->tileCoordForPosition(position);
     
-    if (tileGid) {
-        CCNode *node = _tileMap->getChildByTag(tileGid);
-        if(node)
+    CCPointArray *pointArray = CCPointArray::create(8);
+    pointArray->addControlPoint(ccp(-1,1));
+    pointArray->addControlPoint(ccp(0,1));
+    pointArray->addControlPoint(ccp(1,1));
+    pointArray->addControlPoint(ccp(-1,0));
+    pointArray->addControlPoint(ccp(1,0));
+    pointArray->addControlPoint(ccp(-1,-1));
+    pointArray->addControlPoint(ccp(0,-1));
+    pointArray->addControlPoint(ccp(1,-1));
+    
+    for(int i = 0; i < pointArray->count(); i++){
+        CCPoint point = pointArray->getControlPointAtIndex(i);
+        CCLog("(%f,%f)", point.x, point.y);
+            
+        CCPoint tmpTileCoord = ccp(tileCoord.x + point.x, tileCoord.y + point.y);
+        if(tmpTileCoord.x < 0 || tmpTileCoord.x > _tileMap->getMapSize().width -1 ||
+           tmpTileCoord.y < 0 || tmpTileCoord.y > _tileMap->getMapSize().height - 1)
         {
-            CCSprite* pImg = (CCSprite*)node;
-            // pImg->getTexture()->getName();
-            // http://miyachikantaro.blog.fc2.com/blog-date-201302.html
-            pImg->setColor(ccc3(200,20,0));
+            continue;
         }
-        //CCTMXTilesetInfo *info = _background->getTileSet();
-        //CCGridBase *hoge = _foreground->getGrid();
+        CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
+        CCLog("TileX %f, TileY %f", _tileMap->getMapSize().width, _tileMap->getMapSize().height);
+        int tileGid = _meta->tileGIDAt(tmpTileCoord);
+        
+        if (tileGid) {
+            CCDictionary *properties = _tileMap->propertiesForGID(tileGid);
+            if (properties) {
+                // obstacle
+                CCString *collision = new CCString();
+                *collision = *properties->valueForKey("Collidable");
+            
+                if (collision && (collision->compare("True") == 0)) {
+                    CCSprite *sprite = _background->tileAt(tmpTileCoord);
+                    // red
+                    sprite->setColor(ccc3(255, 90, 90));
+                    //sprite->setOpacity(2);
+                }
+            }
+        }
     }
+    
+    // 白に戻す
+    CCPointArray *revertPointArray = CCPointArray::create(255);
+    revertPointArray->addControlPoint(ccp(-2,2));
+    revertPointArray->addControlPoint(ccp(-1,2));
+    revertPointArray->addControlPoint(ccp(-0,2));
+    revertPointArray->addControlPoint(ccp(1,2));
+    revertPointArray->addControlPoint(ccp(2,2));
+    revertPointArray->addControlPoint(ccp(-2,1));
+    revertPointArray->addControlPoint(ccp(2,1));
+    revertPointArray->addControlPoint(ccp(-2,0));
+    revertPointArray->addControlPoint(ccp(2,0));
+    revertPointArray->addControlPoint(ccp(-2,-1));
+    revertPointArray->addControlPoint(ccp(2,-1));
+    revertPointArray->addControlPoint(ccp(-2,-2));
+    revertPointArray->addControlPoint(ccp(-1,-2));
+    revertPointArray->addControlPoint(ccp(0,-2));
+    revertPointArray->addControlPoint(ccp(1,-2));
+    revertPointArray->addControlPoint(ccp(2,-2));
+    
+    for(int i = 0; i < revertPointArray->count(); i++){
+        CCPoint point = revertPointArray->getControlPointAtIndex(i);
+        CCLog("(%f,%f)", point.x, point.y);
+        
+        CCPoint tmpTileCoord = ccp(tileCoord.x + point.x, tileCoord.y + point.y);
+        
+        if(tmpTileCoord.x < 0 || tmpTileCoord.x > _tileMap->getMapSize().width - 1||
+           tmpTileCoord.y < 0 || tmpTileCoord.y > _tileMap->getMapSize().height - 1)
+        {
+            continue;
+        }
+        CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
+        int tileGid = _meta->tileGIDAt(tmpTileCoord);
+        
+        if (tileGid) {
+            CCDictionary *properties = _tileMap->propertiesForGID(tileGid);
+            if (properties) {
+                // obstacle
+                CCString *collision = new CCString();
+                *collision = *properties->valueForKey("Collidable");
+                
+                if (collision && (collision->compare("True") == 0)) {
+                    CCSprite *sprite = _background->tileAt(tmpTileCoord);
+                    // white
+                    sprite->setColor(ccc3(255, 255, 255));
+                    //sprite->setOpacity(2);
+                }
+            }
+        }
+    }
+    
 }
 
 void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
@@ -281,7 +340,9 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         playerPos.x >= 0 )
     {
         this->setPlayerPosition(playerPos);
-        //this->setTileEffect(playerPos);
+        
+        // not hit only
+        this->setTileEffect(playerPos);
     }
     
     this->setViewPointCenter(_player->getPosition());
