@@ -10,6 +10,7 @@ class HudLayer : public cocos2d::CCLayer
 private:
     CCLabelTTF *_collectedLabel;
     CCLabelTTF *_stageLabel;
+    CCLabelTTF *_lifeLabel;
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
     virtual bool init();
@@ -25,6 +26,7 @@ public:
     
     void numCollectedChanged(int numCollected);
     void setStageLabel(int area, int stage);
+    void setLifeLabel(int life);
 };
 
 #endif // __HUDLAYER_H__

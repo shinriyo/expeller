@@ -20,10 +20,18 @@ bool HudLayer::init()
         _stageLabel = new CCLabelTTF();
         _stageLabel->initWithString("0", "Verdana-Bold", 18.0);
         _stageLabel->setColor(ccc3(0,0,0));
-        
+
         int margin = 10;
         _stageLabel->setPosition(ccp(winSize.width - (_stageLabel->getContentSize().width/2) - margin, _stageLabel->getContentSize().height/2 + margin));
         this->addChild(_stageLabel);
+        
+        // life
+        _lifeLabel = new CCLabelTTF();
+        _lifeLabel->initWithString("0", "Verdana-Bold", 18.0);
+        _lifeLabel->setColor(ccc3(0,0,0));
+
+        _lifeLabel->setPosition(ccp(winSize.width - (_lifeLabel->getContentSize().width/2) - margin, _lifeLabel->getContentSize().height/2 + margin));
+        this->addChild(_lifeLabel);
     }
     
     return true;
@@ -41,4 +49,11 @@ void HudLayer::setStageLabel(int area, int stage)
     CCString *labelStage = new CCString();
     labelStage->initWithFormat("%d-%d", area, stage);
     _stageLabel->setString(labelStage->getCString());
+}
+
+void HudLayer::setLifeLabel(int life)
+{
+    CCString *labelLife = new CCString();
+    labelLife->initWithFormat("LIFE x %d", life);
+    _stageLabel->setString(labelLife->getCString());
 }
