@@ -71,8 +71,13 @@ bool Game::init()
     _player->setPosition(ccp(x,y));
     
     this->setupPlayerAnimations();
-    
     this->addChild(_player);
+    
+    // TODO:
+    // enemy
+    CCDictionary *enemySpawnPoint = objectGroup->objectNamed("EnemySpawnPoint");
+    
+    
     this->setViewPointCenter(_player->getPosition());
     
     this->setTouchEnabled(true);
