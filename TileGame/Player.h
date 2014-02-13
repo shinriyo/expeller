@@ -9,6 +9,14 @@
 #ifndef __TileGame__Player__
 #define __TileGame__Player__
 
-#include <iostream>
+#include "cocos2d.h"
+
+using namespace cocos2d;
+
+class Player
+{
+public:
+    CCAnimationCache* setupAnimations();
+};
 
 #endif /* defined(__TileGame__Player__) */

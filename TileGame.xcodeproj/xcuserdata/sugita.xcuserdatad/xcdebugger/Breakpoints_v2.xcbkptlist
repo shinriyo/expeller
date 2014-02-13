@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TileGame/Classes/GameScene.cpp"
-            timestampString = "413895614.419668"
+            timestampString = "413982278.962251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "Game::setupEnemyAnimations(const char* enemyName)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TileGame/Player.cpp"
+            timestampString = "413982278.962251"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "Player::setupAnimations()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

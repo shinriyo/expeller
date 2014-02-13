@@ -20,7 +20,7 @@
             <key>Player_attack_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{58,31},{25,36}}</string>
+                <string>{{54,83},{25,36}}</string>
                 <key>offset</key>
                 <string>{-1,-2}</string>
                 <key>rotated</key>
@@ -33,11 +33,11 @@
             <key>Player_back_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{92,2},{25,36}}</string>
+                <string>{{54,31},{25,36}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,3},{25,36}}</string>
                 <key>sourceSize</key>
@@ -85,7 +85,7 @@
             <key>Player_left_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{31,40},{25,36}}</string>
+                <string>{{92,2},{25,36}}</string>
                 <key>offset</key>
                 <string>{1,-2}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>Player_right_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{85,40},{23,36}}</string>
+                <string>{{69,58},{23,36}}</string>
                 <key>offset</key>
                 <string>{-2,-2}</string>
                 <key>rotated</key>
@@ -124,13 +124,13 @@
             <key>Player_right_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{31,2},{19,36}}</string>
+                <string>{{31,58},{23,36}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{-2,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{4,2},{19,36}}</string>
+                <string>{{0,2},{23,36}}</string>
                 <key>sourceSize</key>
                 <string>{27,40}</string>
             </dict>
@@ -144,7 +144,7 @@
             <key>size</key>
             <string>{128,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:882174d2a70cfbb95b172943171982c4:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:cee328a904a9edc882aa5eb38827a1dd:7a6b04a99018c3f3a8b116cc517a0f9f:18fcf80557a1b693f695decb3ad03513$</string>
             <key>textureFileName</key>
             <string>Player.png</string>
         </dict>

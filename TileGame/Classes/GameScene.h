@@ -14,6 +14,8 @@ private:
     CCTMXLayer *_background;
     
     CCSprite *_player;
+    // TODO: array?
+    CCSprite *_enemy;
     
     CCTMXLayer *_meta;
     
@@ -26,7 +28,6 @@ private:
     CCAnimationCache *_animationCache;
 
     void runPlayerAcrion(const char* name);
-    void setupPlayerAnimations();
     void setupEnemyAnimations(const char* enemyName);
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)

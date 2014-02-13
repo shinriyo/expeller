@@ -1,5 +1,7 @@
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
+#include "Player.h"
+#include "Enemy.h"
 
 using namespace cocos2d;
 
@@ -60,84 +62,42 @@ bool Game::init()
         return false;
     }
     
-    CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
-    
+    //CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
+    CCPoint playerPoint = objectGroup->getPointByName("SpawnPoint");
+
+    /*
     int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
     int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
+    */
     
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Player.plist");
     _player = new CCSprite();
     _player->initWithSpriteFrameName("Player_right_1.png");
-    _player->setPosition(ccp(x,y));
+    //_player->setPosition(ccp(x,y));
+    _player->setPosition(playerPoint);
     
-    this->setupPlayerAnimations();
+    _animationCache = CCAnimationCache::sharedAnimationCache();
+    // TODO:
+    Player *player = new Player();
+    _animationCache = player->setupAnimations();
     this->addChild(_player);
     
     // TODO:
     // enemy
-    CCDictionary *enemySpawnPoint = objectGroup->objectNamed("EnemySpawnPoint");
-    
+    /*
+    CCPoint enemyPoint = objectGroup->getPointByName("EnemySpawnPoint");
+    CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Enemy.plist");
+    _enemy = new CCSprite();
+    _enemy->initWithSpriteFrameName("Enemy_right_1.png");
+    _animationCache = player->setupAnimations();
+    this->addChild(_enemy);
+    */
     
     this->setViewPointCenter(_player->getPosition());
     
     this->setTouchEnabled(true);
     
     return true;
-}
-
-void Game::setupPlayerAnimations()
-{
-    CCAnimation *pAnimationFront = CCAnimation::create();
-    CCAnimation *pAnimationBack  = CCAnimation::create();
-    CCAnimation *pAnimationLeft  = CCAnimation::create();
-    CCAnimation *pAnimationRight = CCAnimation::create();
-    CCAnimation *pAnimationAttack = CCAnimation::create();
-
-    CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();
-    CCSpriteFrame *frame;
-
-    // 手前 FRONT
-    frame = cache->spriteFrameByName("Player_front_1.png");
-    pAnimationFront->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_front_2.png");
-    pAnimationFront->addSpriteFrame(frame);
-
-    // 上 BACK
-    frame = cache->spriteFrameByName("Player_back_1.png");
-    pAnimationBack->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_back_2.png");
-    pAnimationBack->addSpriteFrame(frame);
-    
-    // 右
-    frame = cache->spriteFrameByName("Player_right_1.png");
-    pAnimationRight->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_right_2.png");
-    pAnimationRight->addSpriteFrame(frame);
-    
-    // 左
-    frame = cache->spriteFrameByName("Player_left_1.png");
-    pAnimationLeft->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_left_2.png");
-    pAnimationLeft->addSpriteFrame(frame);
-    
-    // 攻撃
-    frame = cache->spriteFrameByName("Player_attack_1.png");
-    pAnimationAttack->addSpriteFrame(frame);
-    frame = cache->spriteFrameByName("Player_attack_2.png");
-    pAnimationAttack->addSpriteFrame(frame);
-
-    pAnimationFront->setDelayPerUnit(0.5f);
-    pAnimationBack->setDelayPerUnit(0.5f);
-    pAnimationLeft->setDelayPerUnit(0.5f);
-    pAnimationRight->setDelayPerUnit(0.5f);
-    pAnimationAttack->setDelayPerUnit(0.5f);
-    
-    _animationCache = CCAnimationCache::sharedAnimationCache();
-    _animationCache->addAnimation( pAnimationFront, "FRONT" );
-    _animationCache->addAnimation( pAnimationBack,  "BACK" );
-    _animationCache->addAnimation( pAnimationLeft,  "LEFT" );
-    _animationCache->addAnimation( pAnimationRight, "RIGHT" );
-    _animationCache->addAnimation( pAnimationAttack, "ATTACK" );
 }
 
 // TODO:
@@ -197,8 +157,6 @@ void Game::setupEnemyAnimations(const char* enemyName)
     pAnimationLeft->setDelayPerUnit(0.5f);
     pAnimationRight->setDelayPerUnit(0.5f);
     pAnimationAttack->setDelayPerUnit(0.5f);
-    
-   
 }
 
 void Game::setViewPointCenter(CCPoint position)

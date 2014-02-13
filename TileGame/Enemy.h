@@ -9,6 +9,14 @@
 #ifndef __TileGame__Enemy__
 #define __TileGame__Enemy__
 
-#include <iostream>
+#include "cocos2d.h"
+
+using namespace cocos2d;
+
+class Enemy
+{
+public:
+    CCAnimationCache* setupAnimations(const char* enemyName);
+};
 
 #endif /* defined(__TileGame__Enemy__) */

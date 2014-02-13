@@ -89,4 +89,13 @@ void CCTMXObjectGroup::setObjects(CCArray* objects)
     m_pObjects = objects;
 }
 
+CCPoint CCTMXObjectGroup::getPointByName(const char* objectName)
+{
+    CCDictionary *spawnPoint = this->objectNamed(objectName);
+
+    int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
+    int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
+    return CCPoint(x, y);
+}
+
 NS_CC_END

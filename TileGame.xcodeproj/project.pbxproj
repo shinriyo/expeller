@@ -903,13 +903,6 @@
 			path = Atlas;
 			sourceTree = "<group>";
 		};
-		23E9BA6618A762CB00AD0F63 /* PlayerSprites */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PlayerSprites;
-			sourceTree = "<group>";
-		};
 		EB1C8E8A1755386400198623 = {
 			isa = PBXGroup;
 			children = (
@@ -2057,7 +2050,6 @@
 		EB1C921417553C5F00198623 /* TileGameResources */ = {
 			isa = PBXGroup;
 			children = (
-				23E9BA6618A762CB00AD0F63 /* PlayerSprites */,
 				23E9BA6118A762C500AD0F63 /* Atlas */,
 				EB1C921517553C5F00198623 /* hit.caf */,
 				EB1C921617553C5F00198623 /* meta_tiles.png */,

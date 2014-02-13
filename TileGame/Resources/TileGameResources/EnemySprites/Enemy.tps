@@ -36,7 +36,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../Atlas/Player.png</filename>
+        <filename>../Atlas/Enemy.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -127,7 +127,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../Atlas/Player.plist</filename>
+                <filename>../Atlas/Enemy.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -166,16 +166,16 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>Player_attack_1.png</filename>
-            <filename>Player_attack_2.png</filename>
-            <filename>Player_back_1.png</filename>
-            <filename>Player_back_2.png</filename>
-            <filename>Player_front_1.png</filename>
-            <filename>Player_front_2.png</filename>
-            <filename>Player_left_1.png</filename>
-            <filename>Player_left_2.png</filename>
-            <filename>Player_right_1.png</filename>
-            <filename>Player_right_2.png</filename>
+            <filename>Enemy_attack_1.png</filename>
+            <filename>Enemy_attack_2.png</filename>
+            <filename>Enemy_back_1.png</filename>
+            <filename>Enemy_back_2.png</filename>
+            <filename>Enemy_front_1.png</filename>
+            <filename>Enemy_front_2.png</filename>
+            <filename>Enemy_left_1.png</filename>
+            <filename>Enemy_left_2.png</filename>
+            <filename>Enemy_right_1.png</filename>
+            <filename>Enemy_right_2.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
