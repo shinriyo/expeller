@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		23344E0818ABDD10000B87E5 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23344E0618ABDD10000B87E5 /* Player.cpp */; };
 		23344E0B18ABDD28000B87E5 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23344E0918ABDD28000B87E5 /* Enemy.cpp */; };
+		23344E0E18AD18B4000B87E5 /* Enemy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23344E0C18AD18B4000B87E5 /* Enemy.plist */; };
+		23344E0F18AD18B4000B87E5 /* Enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 23344E0D18AD18B4000B87E5 /* Enemy.png */; };
 		23E9BA5E18A7449100AD0F63 /* Title.png in Resources */ = {isa = PBXBuildFile; fileRef = 23E9BA5D18A7449100AD0F63 /* Title.png */; };
 		23E9BA6018A7537700AD0F63 /* TileMap_1_1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 23E9BA5F18A7537700AD0F63 /* TileMap_1_1.tmx */; };
 		23E9BA6418A762C500AD0F63 /* Player.plist in Resources */ = {isa = PBXBuildFile; fileRef = 23E9BA6218A762C500AD0F63 /* Player.plist */; };
@@ -289,6 +291,8 @@
 		23344E0718ABDD10000B87E5 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		23344E0918ABDD28000B87E5 /* Enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enemy.cpp; sourceTree = "<group>"; };
 		23344E0A18ABDD28000B87E5 /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
+		23344E0C18AD18B4000B87E5 /* Enemy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Enemy.plist; sourceTree = "<group>"; };
+		23344E0D18AD18B4000B87E5 /* Enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Enemy.png; sourceTree = "<group>"; };
 		23E9BA5C18A7423000AD0F63 /* AppMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppMacros.h; sourceTree = "<group>"; };
 		23E9BA5D18A7449100AD0F63 /* Title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Title.png; path = Resources/Title.png; sourceTree = "<group>"; };
 		23E9BA5F18A7537700AD0F63 /* TileMap_1_1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TileMap_1_1.tmx; sourceTree = "<group>"; };
@@ -897,6 +901,8 @@
 		23E9BA6118A762C500AD0F63 /* Atlas */ = {
 			isa = PBXGroup;
 			children = (
+				23344E0C18AD18B4000B87E5 /* Enemy.plist */,
+				23344E0D18AD18B4000B87E5 /* Enemy.png */,
 				23E9BA6218A762C500AD0F63 /* Player.plist */,
 				23E9BA6318A762C500AD0F63 /* Player.png */,
 			);
@@ -2124,6 +2130,7 @@
 				EB1C8EB71755386400198623 /* Icon-Small@2x.png in Resources */,
 				EB1C8EB91755386400198623 /* Icon.png in Resources */,
 				EB1C8EBB1755386400198623 /* Icon@2x.png in Resources */,
+				23344E0E18AD18B4000B87E5 /* Enemy.plist in Resources */,
 				EB1C8EBD1755386400198623 /* iTunesArtwork in Resources */,
 				23E9BA6418A762C500AD0F63 /* Player.plist in Resources */,
 				EB1C8F591755386600198623 /* ChangeLog in Resources */,
@@ -2131,6 +2138,7 @@
 				EB1C90C31755386D00198623 /* project.pbxproj in Resources */,
 				EB1C921D17553C5F00198623 /* hit.caf in Resources */,
 				EB1C921E17553C5F00198623 /* meta_tiles.png in Resources */,
+				23344E0F18AD18B4000B87E5 /* Enemy.png in Resources */,
 				23E9BA6018A7537700AD0F63 /* TileMap_1_1.tmx in Resources */,
 				EB1C921F17553C5F00198623 /* move.caf in Resources */,
 				EB1C922017553C5F00198623 /* pickup.caf in Resources */,

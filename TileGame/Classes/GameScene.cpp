@@ -62,18 +62,10 @@ bool Game::init()
         return false;
     }
     
-    //CCDictionary *spawnPoint = objectGroup->objectNamed("SpawnPoint");
-    CCPoint playerPoint = objectGroup->getPointByName("SpawnPoint");
-
-    /*
-    int x = ((CCString)*spawnPoint->valueForKey("x")).intValue();
-    int y = ((CCString)*spawnPoint->valueForKey("y")).intValue();
-    */
-    
+    CCPoint playerPoint = objectGroup->getPointByName("PlayerSpawnPoint");
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Player.plist");
     _player = new CCSprite();
     _player->initWithSpriteFrameName("Player_right_1.png");
-    //_player->setPosition(ccp(x,y));
     _player->setPosition(playerPoint);
     
     _animationCache = CCAnimationCache::sharedAnimationCache();
@@ -84,14 +76,14 @@ bool Game::init()
     
     // TODO:
     // enemy
-    /*
     CCPoint enemyPoint = objectGroup->getPointByName("EnemySpawnPoint");
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Enemy.plist");
     _enemy = new CCSprite();
     _enemy->initWithSpriteFrameName("Enemy_right_1.png");
+    _enemy->setPosition(enemyPoint);
+    
     _animationCache = player->setupAnimations();
     this->addChild(_enemy);
-    */
     
     this->setViewPointCenter(_player->getPosition());
     
