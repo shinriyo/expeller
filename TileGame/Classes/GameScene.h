@@ -31,7 +31,10 @@ private:
     
     CCAnimationCache *_animationCache;
 
+    bool _isMoveable = true;
     void runPlayerAction(const char* name);
+    void finishAnimation();
+    float const SPEED = 0.3f;
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
     virtual bool init();
@@ -46,7 +49,9 @@ public:
     
     void registerWithTouchDispatcher();
     
-    void setPlayerPosition(CCPoint position);
+//    void setPlayerPosition(CCPoint position);
+    void setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence);
+
     void setTileEffect(CCPoint position);
     bool ccTouchBegan(CCTouch *touch, CCEvent *event);
     

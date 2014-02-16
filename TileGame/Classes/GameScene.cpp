@@ -122,7 +122,7 @@ bool Game::ccTouchBegan(CCTouch *touch, CCEvent *event)
     return true;
 }
 
-void Game::setPlayerPosition(CCPoint position)
+void Game::setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence)
 {
     CCPoint tileCoord = this->tileCoordForPosition(position);
     int tileGid = _meta->tileGIDAt(tileCoord);
@@ -136,6 +136,7 @@ void Game::setPlayerPosition(CCPoint position)
             
             if (collision && (collision->compare("True") == 0)) {
                 CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("hit.caf");
+                this->finishAnimation();
                 return;
             }
             
@@ -152,7 +153,9 @@ void Game::setPlayerPosition(CCPoint position)
             }
         }
     }
-    _player->setPosition(position);
+    
+    //_player->setPosition(position);
+    _player->runAction(sequence);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("move.caf");
 }
 
@@ -260,23 +263,27 @@ void Game::setTileEffect(CCPoint position)
 
 void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
 {
+    if(!_isMoveable) return;
+    
     CCPoint touchLocation = touch->getLocationInView();
     touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
     touchLocation = this->convertToNodeSpace(touchLocation);
     
+    
     CCPoint playerPos = _player->getPosition();
     CCPoint diff = ccpSub(touchLocation, playerPos);
     _player->stopAllActions();
+    CCPoint newPos;
     
     if ( abs(diff.x) > abs(diff.y) ) {
         if (diff.x > 0) {
             // right
-            runPlayerAction("RIGHT");
+            runPlayerAction("P_RIGHT");
             //_player->setFlipX(false);
             playerPos.x += _tileMap->getTileSize().width;
         } else {
             // left
-            runPlayerAction("LEFT");
+            runPlayerAction("P_LEFT");
             //_player->setFlipX(true);
             playerPos.x -= _tileMap->getTileSize().width;
         }
@@ -284,15 +291,20 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         if (diff.y > 0) {
             // up
             // BACK
-            runPlayerAction("BACK");
+            runPlayerAction("P_BACK");
             playerPos.y += _tileMap->getTileSize().height;
         } else {
             // down
             // FRONT
-            runPlayerAction("FRONT");
+            runPlayerAction("P_FRONT");
             playerPos.y -= _tileMap->getTileSize().height;
         }
     }
+    
+    // TODO:
+    CCMoveTo* move = CCMoveTo::create(SPEED, playerPos);
+    CCCallFuncN *func = CCCallFuncN::create(this, callfuncN_selector(Game::finishAnimation));
+    CCFiniteTimeAction* sequence = CCSequence::create(move, func, NULL);
     
     // safety check on the bounds of the map
     if (playerPos.x <= (_tileMap->getMapSize().width * _tileMap->getTileSize().width) &&
@@ -300,13 +312,20 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         playerPos.y >= 0 &&
         playerPos.x >= 0 )
     {
-        this->setPlayerPosition(playerPos);
+        _isMoveable = false;
+//        this->setPlayerPosition(playerPos);
+        this->setPlayerPosition(playerPos, sequence);
         
         // not hit only
         this->setTileEffect(playerPos);
     }
     
     this->setViewPointCenter(_player->getPosition());
+}
+
+void Game::finishAnimation()
+{
+    _isMoveable = true;
 }
 
 void Game::runPlayerAction(const char* name)

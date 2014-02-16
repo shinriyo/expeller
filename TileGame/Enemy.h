@@ -18,10 +18,11 @@ class Enemy : public CCSprite
 public:
     CCAnimationCache* setupAnimations(const char* enemyName);
     void randomWalk(CCTMXTiledMap *tileMap);
-    void finishAnimation();
 private:
+    void finishAnimation();
     bool _isMoveable = true;
     void runAnimation(const char* name);
+    float const SPEED = 1.0f;
 };
 
 #endif /* defined(__TileGame__Enemy__) */

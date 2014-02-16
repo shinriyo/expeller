@@ -56,11 +56,19 @@ CCAnimationCache* Player::setupAnimations()
     pAnimationAttack->setDelayPerUnit(0.5f);
     
     CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
-    animationCache->addAnimation( pAnimationFront, "FRONT" );
-    animationCache->addAnimation( pAnimationBack,  "BACK" );
-    animationCache->addAnimation( pAnimationLeft,  "LEFT" );
-    animationCache->addAnimation( pAnimationRight, "RIGHT" );
-    animationCache->addAnimation( pAnimationAttack, "ATTACK" );
+    animationCache->addAnimation( pAnimationFront, "P_FRONT" );
+    animationCache->addAnimation( pAnimationBack,  "P_BACK" );
+    animationCache->addAnimation( pAnimationLeft,  "P_LEFT" );
+    animationCache->addAnimation( pAnimationRight, "P_RIGHT" );
+    animationCache->addAnimation( pAnimationAttack, "P_ATTACK" );
 
     return animationCache;
+}
+
+void Player::runAnimation(const char* name)
+{
+    CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
+    CCAnimation *pAnimation = animationCache->animationByName(name);
+    CCRepeatForever *pAction = CCRepeatForever::create( CCAnimate::create(pAnimation) );
+    this->runAction(pAction);
 }

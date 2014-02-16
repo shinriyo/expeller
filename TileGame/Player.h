@@ -17,6 +17,8 @@ class Player : public CCSprite
 {
 public:
     CCAnimationCache* setupAnimations();
+private:
+    void runAnimation(const char* name);
 };
 
 #endif /* defined(__TileGame__Player__) */

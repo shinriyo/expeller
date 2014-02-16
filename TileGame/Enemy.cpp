@@ -67,11 +67,11 @@ CCAnimationCache* Enemy::setupAnimations(const char* enemyName)
     
     CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
     animationCache = CCAnimationCache::sharedAnimationCache();
-    animationCache->addAnimation( pAnimationFront, "FRONT" );
-    animationCache->addAnimation( pAnimationBack,  "BACK" );
-    animationCache->addAnimation( pAnimationLeft,  "LEFT" );
-    animationCache->addAnimation( pAnimationRight, "RIGHT" );
-    animationCache->addAnimation( pAnimationAttack, "ATTACK" );
+    animationCache->addAnimation( pAnimationFront, "E_FRONT" );
+    animationCache->addAnimation( pAnimationBack,  "E_BACK" );
+    animationCache->addAnimation( pAnimationLeft,  "E_LEFT" );
+    animationCache->addAnimation( pAnimationRight, "E_RIGHT" );
+    animationCache->addAnimation( pAnimationAttack, "E_ATTACK" );
     
     return animationCache;
 }
@@ -93,14 +93,24 @@ void Enemy::randomWalk(CCTMXTiledMap *tileMap)
 {
     if(!_isMoveable) return;
     _isMoveable = false;
+    float randomVerticalOrHorizon = CCRANDOM_0_1();
+    
     float randomX = CCRANDOM_0_1();
     float randomY = CCRANDOM_0_1();
     CCPoint nowPos = this->getPosition();
     int tileWidth = tileMap->getTileSize().width;
     int tileHeight = tileMap->getTileSize().height;
-    CCPoint newPos = ccp(nowPos.x + (randomX > 0.5f ? tileWidth : -tileWidth),
-                         nowPos.y + (randomY > 0.5f ? tileHeight : -tileHeight));
-    CCMoveTo* move = CCMoveTo::create(1.0f, newPos);
+    CCPoint newPos;
+
+    if(randomVerticalOrHorizon > 0.5f) {
+        // horizon
+        newPos = ccp(nowPos.x + (randomX > 0.5f ? tileWidth : -tileWidth), 0);
+    } else {
+        // vertical
+        newPos = ccp(0, nowPos.y + (randomY > 0.5f ? tileHeight : -tileHeight));
+    }
+
+    CCMoveTo* move = CCMoveTo::create(SPEED, newPos);
     CCCallFuncN *func = CCCallFuncN::create(this, callfuncN_selector(Enemy::finishAnimation));
     CCFiniteTimeAction* sequence = CCSequence::create(move, func, NULL);
     
