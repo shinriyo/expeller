@@ -21,6 +21,7 @@ public:
     void finishAnimation();
 private:
     bool _isMoveable = true;
+    void runAction(const char* name);
 };
 
 #endif /* defined(__TileGame__Enemy__) */

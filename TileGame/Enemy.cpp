@@ -81,6 +81,14 @@ void Enemy::finishAnimation()
     _isMoveable = true;
 }
 
+void Enemy::runAction(const char* name)
+{
+    CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
+    CCAnimation *pAnimation = animationCache->animationByName(name);
+    CCRepeatForever *pAction = CCRepeatForever::create( CCAnimate::create(pAnimation) );
+    this->runAction(pAction);
+}
+
 void Enemy::randomWalk(CCTMXTiledMap *tileMap)
 {
     if(!_isMoveable) return;

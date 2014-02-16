@@ -7,26 +7,26 @@
             <key>Enemy_attack_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{54,2},{27,36}}</string>
+                <string>{{85,40},{25,36}}</string>
                 <key>offset</key>
-                <string>{0,-1}</string>
+                <string>{0,-2}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,3},{27,36}}</string>
+                <string>{{1,4},{25,36}}</string>
                 <key>sourceSize</key>
                 <string>{27,40}</string>
             </dict>
             <key>Enemy_attack_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{58,31},{25,36}}</string>
+                <string>{{58,29},{25,36}}</string>
                 <key>offset</key>
-                <string>{-1,-2}</string>
+                <string>{0,-2}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,4},{25,36}}</string>
+                <string>{{1,4},{25,36}}</string>
                 <key>sourceSize</key>
                 <string>{27,40}</string>
             </dict>
@@ -111,13 +111,13 @@
             <key>Enemy_right_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{85,40},{23,36}}</string>
+                <string>{{54,2},{25,36}}</string>
                 <key>offset</key>
-                <string>{-2,-2}</string>
+                <string>{0,-2}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,4},{23,36}}</string>
+                <string>{{1,4},{25,36}}</string>
                 <key>sourceSize</key>
                 <string>{27,40}</string>
             </dict>
@@ -144,7 +144,7 @@
             <key>size</key>
             <string>{128,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6b61ba699e2f585cf28792e3efc727d9:1cafb35d7444c3821d3384be8440cb7d:9792b3bc94f4f42809fc42a64c45764d$</string>
+            <string>$TexturePacker:SmartUpdate:dc64719c2bf4c5ad27b65fafb3b9a0b3:1/1$</string>
             <key>textureFileName</key>
             <string>Enemy.png</string>
         </dict>

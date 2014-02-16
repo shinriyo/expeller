@@ -271,12 +271,12 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     if ( abs(diff.x) > abs(diff.y) ) {
         if (diff.x > 0) {
             // right
-            runPlayerAcrion("RIGHT");
+            runPlayerAction("RIGHT");
             //_player->setFlipX(false);
             playerPos.x += _tileMap->getTileSize().width;
         } else {
             // left
-            runPlayerAcrion("LEFT");
+            runPlayerAction("LEFT");
             //_player->setFlipX(true);
             playerPos.x -= _tileMap->getTileSize().width;
         }
@@ -284,12 +284,12 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         if (diff.y > 0) {
             // up
             // BACK
-            runPlayerAcrion("BACK");
+            runPlayerAction("BACK");
             playerPos.y += _tileMap->getTileSize().height;
         } else {
             // down
             // FRONT
-            runPlayerAcrion("FRONT");
+            runPlayerAction("FRONT");
             playerPos.y -= _tileMap->getTileSize().height;
         }
     }
@@ -309,7 +309,7 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     this->setViewPointCenter(_player->getPosition());
 }
 
-void Game::runPlayerAcrion(const char* name)
+void Game::runPlayerAction(const char* name)
 {
     CCAnimation *pAnimation = _animationCache->animationByName(name);
     CCRepeatForever *pAction = CCRepeatForever::create( CCAnimate::create(pAnimation) );
