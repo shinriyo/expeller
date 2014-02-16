@@ -2,20 +2,24 @@
 #define __Game_SCENE_H__
 
 #include "cocos2d.h"
+#include "Player.h"
+#include "Enemy.h"
 #include "HudLayer.h"
 
 using namespace cocos2d;
 
 class Game : public cocos2d::CCLayer
 {
+    virtual void update(float delta);
 private:
     CCTMXTiledMap *_tileMap;
     
     CCTMXLayer *_background;
     
-    CCSprite *_player;
+    Player *_player;
+    
     // TODO: array?
-    CCSprite *_enemy;
+    Enemy *_enemy;
     
     CCTMXLayer *_meta;
     

@@ -13,10 +13,14 @@
 
 using namespace cocos2d;
 
-class Enemy
+class Enemy : public CCSprite
 {
 public:
     CCAnimationCache* setupAnimations(const char* enemyName);
+    void randomWalk(CCTMXTiledMap *tileMap);
+    void finishAnimation();
+private:
+    bool _isMoveable = true;
 };
 
 #endif /* defined(__TileGame__Enemy__) */

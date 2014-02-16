@@ -1,7 +1,5 @@
 #include "GameScene.h"
 #include "SimpleAudioEngine.h"
-#include "Player.h"
-#include "Enemy.h"
 
 using namespace cocos2d;
 
@@ -33,6 +31,7 @@ bool Game::init()
         return false;
     }
     
+    this->scheduleUpdate();
     CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("pickup.caf");
     CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("hit.caf");
     CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect("move.caf");
@@ -64,25 +63,22 @@ bool Game::init()
     
     CCPoint playerPoint = objectGroup->getPointByName("PlayerSpawnPoint");
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Player.plist");
-    _player = new CCSprite();
+    _player = new Player();
     _player->initWithSpriteFrameName("Player_right_1.png");
     _player->setPosition(playerPoint);
     
     _animationCache = CCAnimationCache::sharedAnimationCache();
-    Player *player = new Player();
-    _animationCache = player->setupAnimations();
+    _animationCache = _player->setupAnimations();
     this->addChild(_player);
     
-    // TODO:
     // enemy
     CCPoint enemyPoint = objectGroup->getPointByName("EnemySpawnPoint");
     CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Enemy.plist");
-    _enemy = new CCSprite();
+    _enemy = new Enemy();
     _enemy->initWithSpriteFrameName("Enemy_right_1.png");
     _enemy->setPosition(enemyPoint);
     
-    Enemy *enemy = new Enemy();
-    _animationCache = enemy->setupAnimations("Enemy");
+    _animationCache = _enemy->setupAnimations("Enemy");
     this->addChild(_enemy);
     
     this->setViewPointCenter(_player->getPosition());
@@ -90,6 +86,13 @@ bool Game::init()
     this->setTouchEnabled(true);
     
     return true;
+}
+
+//cpp内
+void Game::update(float delta)
+{
+    // ここに記入されたモノを、定期的に呼び出す
+    _enemy->randomWalk(_tileMap);
 }
 
 void Game::setViewPointCenter(CCPoint position)
