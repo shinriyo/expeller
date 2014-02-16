@@ -7,6 +7,7 @@
 //
 
 #include "Enemy.h"
+#include "SimpleAudioEngine.h"
 
 CCAnimationCache* Enemy::setupAnimations(const char* enemyName)
 {
@@ -92,6 +93,7 @@ void Enemy::runAnimation(const char* name)
 void Enemy::randomWalk(CCTMXTiledMap *tileMap)
 {
     if(!_isMoveable) return;
+
     _isMoveable = false;
     float randomVerticalOrHorizon = CCRANDOM_0_1();
     
@@ -102,12 +104,26 @@ void Enemy::randomWalk(CCTMXTiledMap *tileMap)
     int tileHeight = tileMap->getTileSize().height;
     CCPoint newPos;
 
+    // "E_ATTACK"
+    
     if(randomVerticalOrHorizon > 0.5f) {
         // horizon
-        newPos = ccp(nowPos.x + (randomX > 0.5f ? tileWidth : -tileWidth), 0);
+        if(randomX > 0.5f) {
+            newPos = ccp(nowPos.x + tileWidth, nowPos.y);
+            this->runAnimation("E_LEFT");
+        } else {
+            newPos = ccp(nowPos.x + -tileWidth, nowPos.y);
+            this->runAnimation("E_RIGHT");
+        }
     } else {
         // vertical
-        newPos = ccp(0, nowPos.y + (randomY > 0.5f ? tileHeight : -tileHeight));
+        if(randomY > 0.5f) {
+            newPos = ccp(nowPos.x, nowPos.y + tileHeight);
+            this->runAnimation("E_FRONT");
+        } else {
+            newPos = ccp(nowPos.x, nowPos.y + tileHeight);
+            this->runAnimation("E_BACK");
+        }
     }
 
     CCMoveTo* move = CCMoveTo::create(SPEED, newPos);

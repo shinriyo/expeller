@@ -7,6 +7,7 @@
 //
 
 #include "Player.h"
+#include "SimpleAudioEngine.h"
 
 CCAnimationCache* Player::setupAnimations()
 {
@@ -54,7 +55,7 @@ CCAnimationCache* Player::setupAnimations()
     pAnimationLeft->setDelayPerUnit(0.5f);
     pAnimationRight->setDelayPerUnit(0.5f);
     pAnimationAttack->setDelayPerUnit(0.5f);
-    
+
     CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
     animationCache->addAnimation( pAnimationFront, "P_FRONT" );
     animationCache->addAnimation( pAnimationBack,  "P_BACK" );
@@ -65,10 +66,54 @@ CCAnimationCache* Player::setupAnimations()
     return animationCache;
 }
 
+// TODO:
 void Player::runAnimation(const char* name)
 {
     CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
     CCAnimation *pAnimation = animationCache->animationByName(name);
     CCRepeatForever *pAction = CCRepeatForever::create( CCAnimate::create(pAnimation) );
     this->runAction(pAction);
+}
+
+// TODO:
+void Player::setMoving(CCPoint position, CCFiniteTimeAction* sequence)
+{
+    /*
+    CCPoint tileCoord = this->tileCoordForPosition(position);
+    int tileGid = _meta->tileGIDAt(tileCoord);
+    
+    if (tileGid) {
+        CCDictionary *properties = _tileMap->propertiesForGID(tileGid);
+        if (properties) {
+            // obstacle
+            CCString *collision = new CCString();
+            *collision = *properties->valueForKey("Collidable");
+            
+            if (collision && (collision->compare("True") == 0)) {
+                CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("hit.caf");
+                this->finishAnimation();
+                return;
+            }
+            
+            // item get
+            CCString *collectible = new CCString();
+            
+            *collectible = *properties->valueForKey("Collectable");
+            if (collectible && (collectible->compare("True") == 0)) {
+                _meta->removeTileAt(tileCoord);
+                _foreground->removeTileAt(tileCoord);
+                _numCollected++;
+                _hud->numCollectedChanged(_numCollected);
+                CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("pickup.caf");
+            }
+        }
+    }
+    */
+    this->runAction(sequence);
+    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("move.caf");
+}
+
+void Player::finishAnimation()
+{
+    _isMoveable = true;
 }

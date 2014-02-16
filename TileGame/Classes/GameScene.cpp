@@ -122,6 +122,7 @@ bool Game::ccTouchBegan(CCTouch *touch, CCEvent *event)
     return true;
 }
 
+// TODO: move to Player.h
 void Game::setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence)
 {
     CCPoint tileCoord = this->tileCoordForPosition(position);
@@ -275,7 +276,7 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     _player->stopAllActions();
     CCPoint newPos;
     
-    if ( abs(diff.x) > abs(diff.y) ) {
+    if (abs(diff.x) > abs(diff.y)) {
         if (diff.x > 0) {
             // right
             runPlayerAction("P_RIGHT");
@@ -313,7 +314,6 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         playerPos.x >= 0 )
     {
         _isMoveable = false;
-//        this->setPlayerPosition(playerPos);
         this->setPlayerPosition(playerPos, sequence);
         
         // not hit only
@@ -323,11 +323,13 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     this->setViewPointCenter(_player->getPosition());
 }
 
+// TOOD: move to Player.h
 void Game::finishAnimation()
 {
     _isMoveable = true;
 }
 
+// TOOD: move to Player.h
 void Game::runPlayerAction(const char* name)
 {
     CCAnimation *pAnimation = _animationCache->animationByName(name);

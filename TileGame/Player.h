@@ -17,8 +17,11 @@ class Player : public CCSprite
 {
 public:
     CCAnimationCache* setupAnimations();
+    void setMoving(CCPoint position, CCFiniteTimeAction* sequence);
 private:
     void runAnimation(const char* name);
+    void finishAnimation();
+    bool _isMoveable = true;
 };
 
 #endif /* defined(__TileGame__Player__) */
