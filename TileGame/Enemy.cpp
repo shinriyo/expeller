@@ -81,7 +81,7 @@ void Enemy::finishAnimation()
     _isMoveable = true;
 }
 
-void Enemy::runAction(const char* name)
+void Enemy::runAnimation(const char* name)
 {
     CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
     CCAnimation *pAnimation = animationCache->animationByName(name);
