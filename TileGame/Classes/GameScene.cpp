@@ -172,15 +172,16 @@ void Game::setTileEffect(CCPoint position)
     
     CCPoint tileCoord = this->tileCoordForPosition(position);
     
-    CCPointArray *pointArray = CCPointArray::create(8);
-    pointArray->addControlPoint(ccp(-1,1));
+    //CCPointArray *pointArray = CCPointArray::create(8);
+    CCPointArray *pointArray = CCPointArray::create(4);
+    //pointArray->addControlPoint(ccp(-1,1));
     pointArray->addControlPoint(ccp(0,1));
-    pointArray->addControlPoint(ccp(1,1));
+    //pointArray->addControlPoint(ccp(1,1));
     pointArray->addControlPoint(ccp(-1,0));
     pointArray->addControlPoint(ccp(1,0));
-    pointArray->addControlPoint(ccp(-1,-1));
+    //pointArray->addControlPoint(ccp(-1,-1));
     pointArray->addControlPoint(ccp(0,-1));
-    pointArray->addControlPoint(ccp(1,-1));
+    //pointArray->addControlPoint(ccp(1,-1));
     
     for(int i = 0; i < pointArray->count(); i++){
         CCPoint point = pointArray->getControlPointAtIndex(i);

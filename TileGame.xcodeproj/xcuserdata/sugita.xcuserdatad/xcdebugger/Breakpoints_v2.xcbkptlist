@@ -40,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TileGame/Classes/GameScene.cpp"
-            timestampString = "414301019.000636"
+            timestampString = "414306377.452117"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
             landmarkName = "Game::ccTouchEnded(CCTouch *touch, CCEvent *event)"
             landmarkType = "5">
          </BreakpointContent>
