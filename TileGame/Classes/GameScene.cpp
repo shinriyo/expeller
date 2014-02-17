@@ -232,6 +232,10 @@ void Game::setTileEffect(CCPoint position)
     revertPointArray->addControlPoint(ccp(0,-2));
     revertPointArray->addControlPoint(ccp(1,-2));
     revertPointArray->addControlPoint(ccp(2,-2));
+    revertPointArray->addControlPoint(ccp(-1,1));
+    revertPointArray->addControlPoint(ccp(1,1));
+    revertPointArray->addControlPoint(ccp(-1,-1));
+    revertPointArray->addControlPoint(ccp(1,-1));
     
     for(int i = 0; i < revertPointArray->count(); i++){
         CCPoint point = revertPointArray->getControlPointAtIndex(i);
