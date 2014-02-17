@@ -122,7 +122,7 @@ bool Game::ccTouchBegan(CCTouch *touch, CCEvent *event)
     return true;
 }
 
-// TODO: move to Player.h
+// do not move to Player.h
 void Game::setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence)
 {
     CCPoint tileCoord = this->tileCoordForPosition(position);
@@ -279,12 +279,13 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     if (abs(diff.x) > abs(diff.y)) {
         if (diff.x > 0) {
             // right
-            runPlayerAction("P_RIGHT");
+            // TODO: move to Player.h's runAnimation
+            _player->runAnimation("P_RIGHT");
             //_player->setFlipX(false);
             playerPos.x += _tileMap->getTileSize().width;
         } else {
             // left
-            runPlayerAction("P_LEFT");
+            _player->runAnimation("P_LEFT");
             //_player->setFlipX(true);
             playerPos.x -= _tileMap->getTileSize().width;
         }
@@ -292,12 +293,12 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         if (diff.y > 0) {
             // up
             // BACK
-            runPlayerAction("P_BACK");
+            _player->runAnimation("P_BACK");
             playerPos.y += _tileMap->getTileSize().height;
         } else {
             // down
             // FRONT
-            runPlayerAction("P_FRONT");
+            _player->runAnimation("P_FRONT");
             playerPos.y -= _tileMap->getTileSize().height;
         }
     }
@@ -327,14 +328,6 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
 void Game::finishAnimation()
 {
     _isMoveable = true;
-}
-
-// TOOD: move to Player.h
-void Game::runPlayerAction(const char* name)
-{
-    CCAnimation *pAnimation = _animationCache->animationByName(name);
-    CCRepeatForever *pAction = CCRepeatForever::create( CCAnimate::create(pAnimation) );
-    _player->runAction(pAction);
 }
 
 CCPoint Game::tileCoordForPosition(CCPoint position)

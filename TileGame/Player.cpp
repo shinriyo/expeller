@@ -75,44 +75,6 @@ void Player::runAnimation(const char* name)
     this->runAction(pAction);
 }
 
-// TODO:
-void Player::setMoving(CCPoint position, CCFiniteTimeAction* sequence)
-{
-    /*
-    CCPoint tileCoord = this->tileCoordForPosition(position);
-    int tileGid = _meta->tileGIDAt(tileCoord);
-    
-    if (tileGid) {
-        CCDictionary *properties = _tileMap->propertiesForGID(tileGid);
-        if (properties) {
-            // obstacle
-            CCString *collision = new CCString();
-            *collision = *properties->valueForKey("Collidable");
-            
-            if (collision && (collision->compare("True") == 0)) {
-                CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("hit.caf");
-                this->finishAnimation();
-                return;
-            }
-            
-            // item get
-            CCString *collectible = new CCString();
-            
-            *collectible = *properties->valueForKey("Collectable");
-            if (collectible && (collectible->compare("True") == 0)) {
-                _meta->removeTileAt(tileCoord);
-                _foreground->removeTileAt(tileCoord);
-                _numCollected++;
-                _hud->numCollectedChanged(_numCollected);
-                CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("pickup.caf");
-            }
-        }
-    }
-    */
-    this->runAction(sequence);
-    CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("move.caf");
-}
-
 void Player::finishAnimation()
 {
     _isMoveable = true;

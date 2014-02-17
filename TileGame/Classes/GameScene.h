@@ -32,7 +32,6 @@ private:
     CCAnimationCache *_animationCache;
 
     bool _isMoveable = true;
-    void runPlayerAction(const char* name);
     void finishAnimation();
     float const SPEED = 0.3f;
 public:

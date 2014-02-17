@@ -17,9 +17,8 @@ class Player : public CCSprite
 {
 public:
     CCAnimationCache* setupAnimations();
-    void setMoving(CCPoint position, CCFiniteTimeAction* sequence);
-private:
     void runAnimation(const char* name);
+private:
     void finishAnimation();
     bool _isMoveable = true;
 };
