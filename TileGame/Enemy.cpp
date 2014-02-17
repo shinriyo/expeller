@@ -9,6 +9,11 @@
 #include "Enemy.h"
 #include "SimpleAudioEngine.h"
 
+Enemy::Enemy()
+{
+    
+}
+
 CCAnimationCache* Enemy::setupAnimations(const char* enemyName)
 {
     CCAnimation *pAnimationFront = CCAnimation::create();

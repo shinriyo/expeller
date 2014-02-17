@@ -9,6 +9,10 @@
 #include "Player.h"
 #include "SimpleAudioEngine.h"
 
+Player::Player()
+{
+}
+
 CCAnimationCache* Player::setupAnimations()
 {
     CCAnimation *pAnimationFront = CCAnimation::create();

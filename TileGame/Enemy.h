@@ -18,6 +18,7 @@ class Enemy : public CCSprite
 public:
     CCAnimationCache* setupAnimations(const char* enemyName);
     void randomWalk(CCTMXTiledMap *tileMap);
+    Enemy();
 private:
     void finishAnimation();
     bool _isMoveable = true;
