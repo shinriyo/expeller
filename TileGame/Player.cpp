@@ -77,5 +77,5 @@ void Player::runAnimation(const char* name)
 
 void Player::finishAnimation()
 {
-    _isMoveable = true;
+//    _isMoveable = true;
 }

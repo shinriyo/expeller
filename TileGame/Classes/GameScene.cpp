@@ -93,6 +93,9 @@ void Game::update(float delta)
 {
     // ここに記入されたモノを、定期的に呼び出す
     _enemy->randomWalk(_tileMap);
+    
+    // map moving
+    this->setViewPointCenter(_player->getPosition());
 }
 
 void Game::setViewPointCenter(CCPoint position)
@@ -320,8 +323,9 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         // not hit only
         this->setTileEffect(playerPos);
     }
-    
-    this->setViewPointCenter(_player->getPosition());
+ 
+    // TODO: move slow
+    //this->setViewPointCenter(_player->getPosition());
 }
 
 // TOOD: move to Player.h

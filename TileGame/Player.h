@@ -20,7 +20,7 @@ public:
     void runAnimation(const char* name);
 private:
     void finishAnimation();
-    bool _isMoveable = true;
+    //bool _isMoveable = true;
 };
 
 #endif /* defined(__TileGame__Player__) */
