@@ -158,8 +158,9 @@ void Game::setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence)
         }
     }
     
-    //_player->setPosition(position);
     _player->runAction(sequence);
+    // not hit only
+    this->setTileEffect(position);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("move.caf");
 }
 
@@ -171,17 +172,11 @@ void Game::setTileEffect(CCPoint position)
     _hud->setLifeLabel(1);
     
     CCPoint tileCoord = this->tileCoordForPosition(position);
-    
-    //CCPointArray *pointArray = CCPointArray::create(8);
     CCPointArray *pointArray = CCPointArray::create(4);
-    //pointArray->addControlPoint(ccp(-1,1));
     pointArray->addControlPoint(ccp(0,1));
-    //pointArray->addControlPoint(ccp(1,1));
     pointArray->addControlPoint(ccp(-1,0));
     pointArray->addControlPoint(ccp(1,0));
-    //pointArray->addControlPoint(ccp(-1,-1));
     pointArray->addControlPoint(ccp(0,-1));
-    //pointArray->addControlPoint(ccp(1,-1));
     
     for(int i = 0; i < pointArray->count(); i++){
         CCPoint point = pointArray->getControlPointAtIndex(i);
@@ -193,8 +188,10 @@ void Game::setTileEffect(CCPoint position)
         {
             continue;
         }
+
         CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
         CCLog("TileX %f, TileY %f", _tileMap->getMapSize().width, _tileMap->getMapSize().height);
+        
         int tileGid = _meta->tileGIDAt(tmpTileCoord);
         
         if (tileGid) {
@@ -216,23 +213,18 @@ void Game::setTileEffect(CCPoint position)
     
     // 白に戻す
     CCPointArray *revertPointArray = CCPointArray::create(255);
-    revertPointArray->addControlPoint(ccp(-2,2));
-    revertPointArray->addControlPoint(ccp(-1,2));
-    revertPointArray->addControlPoint(ccp(-0,2));
-    revertPointArray->addControlPoint(ccp(1,2));
-    revertPointArray->addControlPoint(ccp(2,2));
-    revertPointArray->addControlPoint(ccp(-2,1));
-    revertPointArray->addControlPoint(ccp(2,1));
-    revertPointArray->addControlPoint(ccp(-2,0));
-    revertPointArray->addControlPoint(ccp(2,0));
-    revertPointArray->addControlPoint(ccp(-2,-1));
-    revertPointArray->addControlPoint(ccp(2,-1));
-    revertPointArray->addControlPoint(ccp(-2,-2));
-    revertPointArray->addControlPoint(ccp(-1,-2));
-    revertPointArray->addControlPoint(ccp(0,-2));
-    revertPointArray->addControlPoint(ccp(1,-2));
-    revertPointArray->addControlPoint(ccp(2,-2));
-    
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 7; j++) {
+            if((i == 3 && j == 2) || (i == 3 && j == 4) ||
+               (i == 2 && j == 3) || (i == 4 && j == 3)
+            )
+            {
+                continue;
+            }
+            revertPointArray->addControlPoint(ccp(-3 + j, -3 + i));
+        }
+    }
+
     for(int i = 0; i < revertPointArray->count(); i++){
         CCPoint point = revertPointArray->getControlPointAtIndex(i);
         CCLog("(%f,%f)", point.x, point.y);
@@ -244,7 +236,9 @@ void Game::setTileEffect(CCPoint position)
         {
             continue;
         }
+        
         CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
+        
         int tileGid = _meta->tileGIDAt(tmpTileCoord);
         
         if (tileGid) {
@@ -307,7 +301,6 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         }
     }
     
-    // TODO:
     CCMoveTo* move = CCMoveTo::create(SPEED, playerPos);
     CCCallFuncN *func = CCCallFuncN::create(this, callfuncN_selector(Game::finishAnimation));
     CCFiniteTimeAction* sequence = CCSequence::create(move, func, NULL);
@@ -320,13 +313,7 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     {
         _isMoveable = false;
         this->setPlayerPosition(playerPos, sequence);
-        
-        // not hit only
-        this->setTileEffect(playerPos);
     }
- 
-    // TODO: move slow
-    //this->setViewPointCenter(_player->getPosition());
 }
 
 // TOOD: move to Player.h

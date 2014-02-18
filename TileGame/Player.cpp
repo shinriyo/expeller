@@ -54,11 +54,11 @@ CCAnimationCache* Player::setupAnimations()
     frame = cache->spriteFrameByName("Player_attack_2.png");
     pAnimationAttack->addSpriteFrame(frame);
     
-    pAnimationFront->setDelayPerUnit(0.5f);
-    pAnimationBack->setDelayPerUnit(0.5f);
-    pAnimationLeft->setDelayPerUnit(0.5f);
-    pAnimationRight->setDelayPerUnit(0.5f);
-    pAnimationAttack->setDelayPerUnit(0.5f);
+    pAnimationFront->setDelayPerUnit(0.2f);
+    pAnimationBack->setDelayPerUnit(0.2f);
+    pAnimationLeft->setDelayPerUnit(0.2f);
+    pAnimationRight->setDelayPerUnit(0.2f);
+    pAnimationAttack->setDelayPerUnit(0.2f);
 
     CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
     animationCache->addAnimation( pAnimationFront, "P_FRONT" );
