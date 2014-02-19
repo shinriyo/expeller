@@ -19,9 +19,6 @@ public:
     CCAnimationCache* setupAnimations();
     void runAnimation(const char* name);
     Player();
-private:
-    void finishAnimation();
-    //bool _isMoveable = true;
 };
 
 #endif /* defined(__TileGame__Player__) */

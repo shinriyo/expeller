@@ -166,7 +166,6 @@ void Game::setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence)
 
 void Game::setTileEffect(CCPoint position)
 {
-    // TODO:
     // stage and area
     _hud->setStageLabel(1, 1);
     _hud->setLifeLabel(1);
@@ -205,7 +204,7 @@ void Game::setTileEffect(CCPoint position)
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
                     // red
                     sprite->setColor(ccc3(255, 90, 90));
-                    //sprite->setOpacity(2);
+                    sprite->setOpacity(0.9f);
                 }
             }
         }
@@ -252,7 +251,7 @@ void Game::setTileEffect(CCPoint position)
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
                     // white
                     sprite->setColor(ccc3(255, 255, 255));
-                    //sprite->setOpacity(2);
+                    sprite->setOpacity(1.0f);
                 }
             }
         }
@@ -277,14 +276,11 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     if (abs(diff.x) > abs(diff.y)) {
         if (diff.x > 0) {
             // right
-            // TODO: move to Player.h's runAnimation
             _player->runAnimation("P_RIGHT");
-            //_player->setFlipX(false);
             playerPos.x += _tileMap->getTileSize().width;
         } else {
             // left
             _player->runAnimation("P_LEFT");
-            //_player->setFlipX(true);
             playerPos.x -= _tileMap->getTileSize().width;
         }
     } else {
@@ -316,7 +312,6 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     }
 }
 
-// TOOD: move to Player.h
 void Game::finishAnimation()
 {
     _isMoveable = true;

@@ -69,17 +69,3 @@ CCAnimationCache* Player::setupAnimations()
 
     return animationCache;
 }
-
-// TODO:
-void Player::runAnimation(const char* name)
-{
-    CCAnimationCache *animationCache = CCAnimationCache::sharedAnimationCache();
-    CCAnimation *pAnimation = animationCache->animationByName(name);
-    CCRepeatForever *pAction = CCRepeatForever::create( CCAnimate::create(pAnimation) );
-    this->runAction(pAction);
-}
-
-void Player::finishAnimation()
-{
-//    _isMoveable = true;
-}
