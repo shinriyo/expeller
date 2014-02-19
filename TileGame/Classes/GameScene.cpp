@@ -204,7 +204,7 @@ void Game::setTileEffect(CCPoint position)
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
                     // red
                     sprite->setColor(ccc3(255, 90, 90));
-                    sprite->setOpacity(0.9f);
+                    //sprite->setOpacity(0.9f);
                 }
             }
         }
@@ -251,12 +251,11 @@ void Game::setTileEffect(CCPoint position)
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
                     // white
                     sprite->setColor(ccc3(255, 255, 255));
-                    sprite->setOpacity(1.0f);
+                    //sprite->setOpacity(1.0f);
                 }
             }
         }
     }
-    
 }
 
 void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
@@ -314,6 +313,15 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
 
 void Game::finishAnimation()
 {
+    _player->stopAllActions();
+    
+    // TOOD:
+    // 上下左右で止まる
+    if(true) {
+        
+    } else {
+        
+    }
     _isMoveable = true;
 }
 
