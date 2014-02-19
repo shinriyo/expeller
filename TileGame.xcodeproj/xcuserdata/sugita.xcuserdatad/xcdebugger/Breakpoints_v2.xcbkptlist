@@ -23,28 +23,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TileGame/Player.cpp"
-            timestampString = "414302593.082338"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "Player::runAnimation(const char* name)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "TileGame/Classes/GameScene.cpp"
-            timestampString = "414386808.261481"
+            timestampString = "414469534.106395"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "Game::ccTouchEnded(CCTouch *touch, CCEvent *event)"
             landmarkType = "5">
          </BreakpointContent>
