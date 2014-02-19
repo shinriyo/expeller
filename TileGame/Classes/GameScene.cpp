@@ -318,9 +318,10 @@ void Game::finishAnimation()
     // TOOD:
     // 上下左右で止まる
     if(true) {
-        
+        //
+        _player->initWithSpriteFrameName("Player_right_1.png");
     } else {
-        
+        //
     }
 
     _isMoveable = true;
