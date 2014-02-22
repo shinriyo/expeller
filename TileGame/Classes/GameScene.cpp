@@ -276,10 +276,12 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
         if (diff.x > 0) {
             // right
             _player->runAnimation("P_RIGHT");
+            _player->direction = Player::Right;
             playerPos.x += _tileMap->getTileSize().width;
         } else {
             // left
             _player->runAnimation("P_LEFT");
+            _player->direction = Player::Left;
             playerPos.x -= _tileMap->getTileSize().width;
         }
     } else {
@@ -287,11 +289,13 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
             // up
             // BACK
             _player->runAnimation("P_BACK");
+            _player->direction = Player::Back;
             playerPos.y += _tileMap->getTileSize().height;
         } else {
             // down
             // FRONT
             _player->runAnimation("P_FRONT");
+            _player->direction = Player::Front;
             playerPos.y -= _tileMap->getTileSize().height;
         }
     }
@@ -315,15 +319,15 @@ void Game::finishAnimation()
 {
     _player->stopAllActions();
     
-    // TOOD:
     // 上下左右で止まる
-    if(true) {
-        //
-        _player->initWithSpriteFrameName("Player_right_1.png");
-    } else {
-        //
+    switch(_player->direction) {
+        break; case Player::Right: { _player->initWithSpriteFrameName("Player_right_1.png"); }
+        break; case Player::Left: { _player->initWithSpriteFrameName("Player_left_1.png"); }
+        break; case Player::Back: { _player->initWithSpriteFrameName("Player_back_1.png"); }
+        break; case Player::Front: { _player->initWithSpriteFrameName("Player_front_1.png"); }
+        break; default: { _player->initWithSpriteFrameName("Player_right_1.png"); }
     }
-
+    
     _isMoveable = true;
 }
 

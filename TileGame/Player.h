@@ -16,6 +16,8 @@ using namespace cocos2d;
 class Player : public CCSprite
 {
 public:
+    enum Direction { Left, Right, Back, Front };
+    Direction direction;
     CCAnimationCache* setupAnimations();
     void runAnimation(const char* name);
     Player();
