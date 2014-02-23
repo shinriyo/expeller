@@ -92,7 +92,8 @@ bool Game::init()
 void Game::update(float delta)
 {
     // ここに記入されたモノを、定期的に呼び出す
-    _enemy->randomWalk(_tileMap);
+//    _enemy->randomWalk(_tileMap);
+    _enemy->randomWalk(_meta, _tileMap);
     
     // map moving
     this->setViewPointCenter(_player->getPosition());
