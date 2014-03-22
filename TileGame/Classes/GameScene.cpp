@@ -160,11 +160,38 @@ void Game::setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence)
     }
     
     _player->runAction(sequence);
-    // not hit only
+    // not hit only　赤にする
     this->setTileEffect(position);
     CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("move.caf");
 }
 
+// 赤をタップした？
+void Game::attackBlock(CCPoint point)
+{
+    CCPoint tileCoord = this->tileCoordForPosition(point);;
+    
+    int tileGid = _meta->tileGIDAt(tileCoord);
+    if (tileGid) {
+        CCDictionary *properties = _tileMap->propertiesForGID(tileGid);
+        if (properties) {
+            // obstacle
+            CCString *collision = new CCString();
+            *collision = *properties->valueForKey("Collidable");
+            
+            // 殴れる判定
+            if (collision && (collision->compare("True") == 0)) {
+                CCLog("Attackable");
+                /*CCSprite *sprite = _background->tileAt(tileCoord);
+                if(sprite->getTag() == TAPPABLE)
+                {
+                    CCLog("OKsssss");
+                }*/
+            }
+        }
+    }
+}
+
+// タイルを赤にする
 void Game::setTileEffect(CCPoint position)
 {
     // stage and area
@@ -172,6 +199,7 @@ void Game::setTileEffect(CCPoint position)
     _hud->setLifeLabel(1);
     
     CCPoint tileCoord = this->tileCoordForPosition(position);
+    // キャラクターの上下左右の座標
     CCPointArray *pointArray = CCPointArray::create(4);
     pointArray->addControlPoint(ccp(0,1));
     pointArray->addControlPoint(ccp(-1,0));
@@ -180,7 +208,7 @@ void Game::setTileEffect(CCPoint position)
     
     for(int i = 0; i < pointArray->count(); i++){
         CCPoint point = pointArray->getControlPointAtIndex(i);
-        CCLog("(%f,%f)", point.x, point.y);
+        //CCLog("(%f,%f)", point.x, point.y);
             
         CCPoint tmpTileCoord = ccp(tileCoord.x + point.x, tileCoord.y + point.y);
         if(tmpTileCoord.x < 0 || tmpTileCoord.x > _tileMap->getMapSize().width -1 ||
@@ -189,7 +217,7 @@ void Game::setTileEffect(CCPoint position)
             continue;
         }
 
-        CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
+        //CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
         CCLog("TileX %f, TileY %f", _tileMap->getMapSize().width, _tileMap->getMapSize().height);
         
         int tileGid = _meta->tileGIDAt(tmpTileCoord);
@@ -203,8 +231,9 @@ void Game::setTileEffect(CCPoint position)
             
                 if (collision && (collision->compare("True") == 0)) {
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
+                    //sprite->setTag(TAPPABLE);
                     // red
-                    sprite->setColor(ccc3(255, 90, 90));
+                    sprite->setColor(ccRED);
                 }
             }
         }
@@ -226,7 +255,7 @@ void Game::setTileEffect(CCPoint position)
 
     for(int i = 0; i < revertPointArray->count(); i++){
         CCPoint point = revertPointArray->getControlPointAtIndex(i);
-        CCLog("(%f,%f)", point.x, point.y);
+        //CCLog("(%f,%f)", point.x, point.y);
         
         CCPoint tmpTileCoord = ccp(tileCoord.x + point.x, tileCoord.y + point.y);
         
@@ -236,7 +265,7 @@ void Game::setTileEffect(CCPoint position)
             continue;
         }
         
-        CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
+        //CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
         
         int tileGid = _meta->tileGIDAt(tmpTileCoord);
         
@@ -249,8 +278,9 @@ void Game::setTileEffect(CCPoint position)
                 
                 if (collision && (collision->compare("True") == 0)) {
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
-                    // white
-                    sprite->setColor(ccc3(255, 255, 255));
+                    // 白で塗る
+                    sprite->setColor(ccWHITE);
+                    //sprite->setTag(NOT_TAPPABLE);
                 }
             }
         }
@@ -265,6 +295,8 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
     touchLocation = CCDirector::sharedDirector()->convertToGL(touchLocation);
     touchLocation = this->convertToNodeSpace(touchLocation);
     
+    // 赤をタップした？
+    this->attackBlock(touchLocation);
     
     CCPoint playerPos = _player->getPosition();
     CCPoint diff = ccpSub(touchLocation, playerPos);

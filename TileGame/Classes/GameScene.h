@@ -28,12 +28,15 @@ private:
     HudLayer *_hud;
     
     int _numCollected;
-    
+    /*const int NOT_TAPPABLE = 0;
+    const int TAPPABLE = 1;*/
     CCAnimationCache *_animationCache;
 
     bool _isMoveable = true;
     void finishAnimation();
     float const SPEED = 0.3f;
+    
+    void attackBlock(CCPoint point);
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
     virtual bool init();
