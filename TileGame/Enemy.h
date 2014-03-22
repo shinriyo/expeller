@@ -19,6 +19,7 @@ public:
     CCAnimationCache* setupAnimations(const char* enemyName);
     void randomWalk(CCTMXTiledMap *tileMap);
     Enemy();
+    enum EDirection { E_Left = 0, E_Right, E_Front, E_Back };
 private:
     void finishAnimation();
     bool _isMoveable = true;

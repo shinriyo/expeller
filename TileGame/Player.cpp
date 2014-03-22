@@ -77,3 +77,4 @@ void Player::runAnimation(const char* name)
     CCRepeatForever *pAction = CCRepeatForever::create( CCAnimate::create(pAnimation) );
     this->runAction(pAction);
 }
+

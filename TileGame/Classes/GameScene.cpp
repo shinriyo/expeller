@@ -204,7 +204,6 @@ void Game::setTileEffect(CCPoint position)
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
                     // red
                     sprite->setColor(ccc3(255, 90, 90));
-                    //sprite->setOpacity(0.9f);
                 }
             }
         }
@@ -251,7 +250,6 @@ void Game::setTileEffect(CCPoint position)
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
                     // white
                     sprite->setColor(ccc3(255, 255, 255));
-                    //sprite->setOpacity(1.0f);
                 }
             }
         }
@@ -277,10 +275,12 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
             // right
             _player->runAnimation("P_RIGHT");
             playerPos.x += _tileMap->getTileSize().width;
+            _player->setDirection(Player::P_Right);
         } else {
             // left
             _player->runAnimation("P_LEFT");
             playerPos.x -= _tileMap->getTileSize().width;
+            _player->setDirection(Player::P_Left);
         }
     } else {
         if (diff.y > 0) {
@@ -288,11 +288,13 @@ void Game::ccTouchEnded(CCTouch *touch, CCEvent *event)
             // BACK
             _player->runAnimation("P_BACK");
             playerPos.y += _tileMap->getTileSize().height;
+            _player->setDirection(Player::P_Back);
         } else {
             // down
             // FRONT
             _player->runAnimation("P_FRONT");
             playerPos.y -= _tileMap->getTileSize().height;
+            _player->setDirection(Player::P_Front);
         }
     }
     
@@ -317,11 +319,16 @@ void Game::finishAnimation()
     
     // TOOD:
     // 上下左右で止まる
-    if(true) {
-        
-    } else {
-        
+    if(_player->getDirection() == Player::P_Right) {
+        _player->initWithSpriteFrameName("Player_right_1.png");
+    } else if(_player->getDirection() == Player::P_Left) {
+        _player->initWithSpriteFrameName("Player_left_1.png");
+    } else if (_player->getDirection() == Player::P_Front) {
+        _player->initWithSpriteFrameName("Player_front_1.png");
+    } else if (_player->getDirection() == Player::P_Back) {
+        _player->initWithSpriteFrameName("Player_back_1.png");
     }
+
     _isMoveable = true;
 }
 
