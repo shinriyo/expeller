@@ -17,7 +17,8 @@ class Enemy : public CCSprite
 {
 public:
     CCAnimationCache* setupAnimations(const char* enemyName);
-    void randomWalk(CCTMXTiledMap *tileMap);
+//    void randomWalk(CCTMXTiledMap *tileMap);
+    void randomWalk(CCTMXLayer *meta, CCTMXTiledMap *tileMap);
     Enemy();
     enum EDirection { E_Left = 0, E_Right, E_Front, E_Back };
 private:
@@ -25,6 +26,7 @@ private:
     bool _isMoveable = true;
     void runAnimation(const char* name);
     float const SPEED = 1.0f;
+    CCPoint tileCoordForPosition(CCTMXTiledMap *tileMap, CCPoint position);
 };
 
 #endif /* defined(__TileGame__Enemy__) */

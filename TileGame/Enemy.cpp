@@ -95,7 +95,8 @@ void Enemy::runAnimation(const char* name)
     this->runAction(pAction);
 }
 
-void Enemy::randomWalk(CCTMXTiledMap *tileMap)
+//void Enemy::randomWalk(CCTMXTiledMap *tileMap)
+void Enemy::randomWalk(CCTMXLayer *meta, CCTMXTiledMap *tileMap)
 {
     if(!_isMoveable) return;
 
@@ -107,7 +108,32 @@ void Enemy::randomWalk(CCTMXTiledMap *tileMap)
     CCPoint nowPos = this->getPosition();
     int tileWidth = tileMap->getTileSize().width;
     int tileHeight = tileMap->getTileSize().height;
-    CCPoint newPos;
+    CCPoint newPos = ccp(nowPos.x + randomX, nowPos.y + randomY);
+    CCPoint tileCoord = this->tileCoordForPosition(tileMap, newPos);
+
+    int tileGid = meta->tileGIDAt(tileCoord);
+
+    if (tileGid) {
+        // TODO: "TMXLayer: invalid position"
+        // error
+//        CCDictionary *properties = tileMap->propertiesForGID(tileGid);
+        /*
+        if (properties) {
+            // obstacle
+            CCString *collision = new CCString();
+            *collision = *properties->valueForKey("Collidable");
+
+            // item get
+            CCString *collectible = new CCString();
+            
+            if ((collision && (collision->compare("True") == 0)) ||
+                (collectible && (collectible->compare("True") == 0))) {
+                CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("hit.caf");
+                return;
+            }
+        }
+        */
+    }
 
     // "E_ATTACK"
     
@@ -134,7 +160,7 @@ void Enemy::randomWalk(CCTMXTiledMap *tileMap)
     CCMoveTo* move = CCMoveTo::create(SPEED, newPos);
     CCCallFuncN *func = CCCallFuncN::create(this, callfuncN_selector(Enemy::finishAnimation));
     CCFiniteTimeAction* sequence = CCSequence::create(move, func, NULL);
-    
+
     if (newPos.x <= (tileMap->getMapSize().width * tileMap->getTileSize().width) &&
         newPos.y <= (tileMap->getMapSize().height * tileMap->getTileSize().height) &&
         newPos.y >= 0 &&
@@ -142,4 +168,12 @@ void Enemy::randomWalk(CCTMXTiledMap *tileMap)
     {
         this->runAction(sequence);
     }
+}
+
+// Move common?
+CCPoint Enemy::tileCoordForPosition(CCTMXTiledMap *tileMap, CCPoint position)
+{
+    int x = position.x / tileMap->getTileSize().width;
+    int y = ((tileMap->getMapSize().height * tileMap->getTileSize().height) - position.y) / tileMap->getTileSize().height;
+    return ccp(x, y);
 }

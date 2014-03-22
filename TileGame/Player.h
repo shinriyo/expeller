@@ -21,8 +21,6 @@ public:
     enum PDirection { P_Right = 0, P_Left, P_Front, P_Back };
     CC_SYNTHESIZE(PDirection, direction, Direction);
     Player();
-    
-    PDirection * _pdirection;
 };
 
 #endif /* defined(__TileGame__Player__) */

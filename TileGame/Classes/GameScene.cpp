@@ -92,7 +92,8 @@ bool Game::init()
 void Game::update(float delta)
 {
     // ここに記入されたモノを、定期的に呼び出す
-    _enemy->randomWalk(_tileMap);
+//    _enemy->randomWalk(_tileMap);
+    _enemy->randomWalk(_meta, _tileMap);
     
     // map moving
     this->setViewPointCenter(_player->getPosition());
@@ -317,18 +318,15 @@ void Game::finishAnimation()
 {
     _player->stopAllActions();
     
-    // TOOD:
     // 上下左右で止まる
-    if(_player->getDirection() == Player::P_Right) {
-        _player->initWithSpriteFrameName("Player_right_1.png");
-    } else if(_player->getDirection() == Player::P_Left) {
-        _player->initWithSpriteFrameName("Player_left_1.png");
-    } else if (_player->getDirection() == Player::P_Front) {
-        _player->initWithSpriteFrameName("Player_front_1.png");
-    } else if (_player->getDirection() == Player::P_Back) {
-        _player->initWithSpriteFrameName("Player_back_1.png");
+    switch(_player->getDirection()) {
+        break; case Player::P_Right: { _player->initWithSpriteFrameName("Player_right_1.png"); }
+        break; case Player::P_Left: { _player->initWithSpriteFrameName("Player_left_1.png"); }
+        break; case Player::P_Back: { _player->initWithSpriteFrameName("Player_back_1.png"); }
+        break; case Player::P_Front: { _player->initWithSpriteFrameName("Player_front_1.png"); }
+        break; default: { _player->initWithSpriteFrameName("Player_right_1.png"); }
     }
-
+    
     _isMoveable = true;
 }
 
