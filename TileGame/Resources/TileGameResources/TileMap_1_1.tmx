@@ -4,7 +4,7 @@
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
  </tileset>
  <tileset firstgid="49" name="meta_tiles" tilewidth="32" tileheight="32" spacing="1" margin="1">
-  <image source="meta_tiles.png" width="67" height="34"/>
+  <image source="meta_tiles.png" width="133" height="34"/>
   <tile id="0">
    <properties>
     <property name="Collidable" value="True"/>
@@ -15,10 +15,20 @@
     <property name="Collectable" value="True"/>
    </properties>
   </tile>
+  <tile id="2">
+   <properties>
+    <property name="Moveable" value="True"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="disperseable" value="True"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Background" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJyTY2BgkANiAygtCcRSVMTSUHPRMcg+DSS+IhCrALEWlbA2DntBWA3JvyB7lfGopRbG5l8S7E2AYrLsHiz+1WEgPa3gSo+40hWy/SBak4G4tMIGxOxQzIFHH750hYw1kMIAGw1SowfEfEDMD8UCaGGHTmOzh51MzItkLw8Btdjs5acDFhhE9orTARObtzQowNj0k5qvycHY9NK6DBrFo3igMQATvkVy
+   eJzt0s0KgzAMB/CcnCfxNqZQGIqrH4iP5Ps/xRLIIRRT2lI2EQ8/QkP1T0MMABi0cX2hJqOW/+uiPCvOb9SjKZNZySWDeC/ldp67uRy9NyJ3Z0nZZ3nvAvG7ou2jtlcyn+oIYbtSoAcrPd/59kqyPHdZP6JSb0WVUDuzc+tRTvUD/8qtlWzyjDyH3tGccc42gVF6oblbIqP0brcr+wKJbUVq
   </data>
  </layer>
  <objectgroup name="Objects" width="30" height="20">
@@ -32,7 +42,7 @@
  </layer>
  <layer name="Meta" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAQySa2hgbQJejl73odhNSSy2Ay78gYEQlmhi7B9q/pMYZOfHLwIDpX3rYixwPxNhHKG+Q4t9RMHIApWUiJelqoOwdBaNgKAIAAJ8d5w==
+   eJxjYIAAEyhtSAOMDZigydHLXphd6P6lNcDlXxAwohKNCwwm/5IaZ+TEL8x+etuLHA/E2Ecob6DTo2AUIAMTMjAIkJKPqGGnCQ69o2AUDHcAAKN/HgA=
   </data>
  </layer>
 </map>

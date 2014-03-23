@@ -150,6 +150,7 @@ void Game::setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence)
             
             *collectible = *properties->valueForKey("Collectable");
             if (collectible && (collectible->compare("True") == 0)) {
+                // 取り除く
                 _meta->removeTileAt(tileCoord);
                 _foreground->removeTileAt(tileCoord);
                 _numCollected++;
@@ -181,6 +182,9 @@ void Game::attackBlock(CCPoint point)
             // 殴れる判定
             if (collision && (collision->compare("True") == 0)) {
                 CCLog("Attackable");
+                // ブロック消す
+                //_meta->removeTileAt(tileCoord);
+                //_foreground->removeTileAt(tileCoord);
                 /*CCSprite *sprite = _background->tileAt(tileCoord);
                 if(sprite->getTag() == TAPPABLE)
                 {
@@ -218,7 +222,7 @@ void Game::setTileEffect(CCPoint position)
         }
 
         //CCLog("(%f,%f)", tmpTileCoord.x, tmpTileCoord.y);
-        CCLog("TileX %f, TileY %f", _tileMap->getMapSize().width, _tileMap->getMapSize().height);
+        //CCLog("TileX %f, TileY %f", _tileMap->getMapSize().width, _tileMap->getMapSize().height);
         
         int tileGid = _meta->tileGIDAt(tmpTileCoord);
         
