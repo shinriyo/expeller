@@ -22,13 +22,13 @@
   </tile>
   <tile id="3">
    <properties>
-    <property name="Disperseable" value="True"/>
+    <property name="Breakable" value="True"/>
    </properties>
   </tile>
  </tileset>
  <layer name="Background" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt0s0KgzAMB/CcnCfxNqZQGIqrH4iP5Ps/xRLIIRRT2lI2EQ8/QkP1T0MMABi0cX2hJqOW/+uiPCvOb9SjKZNZySWDeC/ldp67uRy9NyJ3Z0nZZ3nvAvG7ou2jtlcyn+oIYbtSoAcrPd/59kqyPHdZP6JSb0WVUDuzc+tRTvUD/8qtlWzyjDyH3tGccc42gVF6oblbIqP0brcr+wKJbUVq
+   eJzt0sEKgzAMBuCcNk/ibUyhMDa0Uw8+0t7/KZZABqGY0oQyxvDwEVpaf1ITACCgjesV9RUN/N0U5UWxvqEHmitZlFwyin4p9545W8tev4bcF3Nl/0q/K9hnRZtHba5kPtUnlM3KCZ1Zk7mXmysp8rvLOon6+Set0CVvl9a9nNZodNypkevRKdnkYlyXntF8o19rbnQIyl5p7uYUlL3D4Z+9ARfERYQ=
   </data>
  </layer>
  <objectgroup name="Objects" width="30" height="20">
@@ -42,7 +42,7 @@
  </layer>
  <layer name="Meta" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAEyhtSAOMDZigydHLXphd6P6lNcDlXxAwohKNCwwm/5IaZ+TEL8x+etuLHA/UyBvo9CgYBciA3DKRlHyEDkzIxNj0joJRMNwBADqiHgo=
+   eJxjYIAAYyhtSAOMDYDsM0Hi08teBqi96P6lNcDlXxAwohKNCwwm/5IaZ+TEL8x+etuLHA8mRGBjdAOQ3G6ChaYGoJY5o2DgATFpDB1j00cKMCYDm+DQOwpGwXAHAOO0Hos=
   </data>
  </layer>
 </map>

@@ -137,18 +137,28 @@ void Game::setPlayerPosition(CCPoint position, CCFiniteTimeAction* sequence)
             // obstacle
             CCString *collision = new CCString();
             *collision = *properties->valueForKey("Collidable");
+            // Moveable
+            CCString *move = new CCString();
+            *move = *properties->valueForKey("Moveable");
+            // Breakable
+            CCString *breakable = new CCString();
+            *breakable = *properties->valueForKey("Breakable");
             
-            if (collision && (collision->compare("True") == 0)) {
+            if ((collision && collision->compare("True") == 0) ||
+                 (move && move->compare("True") == 0) ||
+                 (breakable && breakable->compare("True") == 0)) {
+                // 動けない音を出す
                 CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("hit.caf");
                 this->finishAnimation();
+                CCLog("Can't move");
                 return;
             }
             
             // item get
-            CCString *collectible = new CCString();
+            CCString *collectable = new CCString();
             
-            *collectible = *properties->valueForKey("Collectable");
-            if (collectible && (collectible->compare("True") == 0)) {
+            *collectable = *properties->valueForKey("Collectable");
+            if (collectable && (collectable->compare("True") == 0)) {
                 // 取り除く
                 _meta->removeTileAt(tileCoord);
                 _foreground->removeTileAt(tileCoord);
@@ -178,9 +188,18 @@ void Game::attackBlock(CCPoint point)
             CCString *collision = new CCString();
             *collision = *properties->valueForKey("Collidable");
             
+            // Moveable
+            //CCString *move = new CCString();
+            //*move = *properties->valueForKey("Moveable");
+            // Breakable
+            CCString *breakable = new CCString();
+            *breakable = *properties->valueForKey("Breakable");
+
             // 殴れる判定
-            if (collision && (collision->compare("True") == 0)) {
+            if (breakable && breakable->compare("True") == 0) {
+            //if (collision && (collision->compare("True") == 0)) {
                 CCLog("Attackable");
+                // TODO:
                 
                 // ブロック消す
                 //_meta->removeTileAt(tileCoord);
@@ -195,13 +214,21 @@ void Game::attackBlock(CCPoint point)
     }
 }
 
+void Game::block()
+{
+}
+    
 // タイルを連鎖で壊す
 void Game::breakBlock(CCPoint point)
 {
     
 }
 
-// タイルを赤にする
+// TODO:
+// Moveable(移動できる、分散)のタイル
+
+
+// Breakable(破壊可能)のタイルを赤にする
 void Game::setTileEffect(CCPoint position)
 {
     // stage and area
@@ -237,8 +264,8 @@ void Game::setTileEffect(CCPoint position)
             if (properties) {
                 // obstacle
                 CCString *collision = new CCString();
-                // TODO: 今後はMoveableで。
-                *collision = *properties->valueForKey("Collidable");
+                // Breakableを赤
+                *collision = *properties->valueForKey("Breakable");
             
                 if (collision && (collision->compare("True") == 0)) {
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
@@ -298,8 +325,8 @@ void Game::setTileEffect(CCPoint position)
             if (properties) {
                 // obstacle
                 CCString *collision = new CCString();
-                // TODO: 今後はMoveableとか、も行えるように。
-                *collision = *properties->valueForKey("Collidable");
+                // Breakableのみ戻す
+                *collision = *properties->valueForKey("Breakable");
                 
                 if (collision && (collision->compare("True") == 0)) {
                     CCSprite *sprite = _background->tileAt(tmpTileCoord);
