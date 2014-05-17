@@ -37,6 +37,7 @@ private:
     float const SPEED = 0.3f;
     
     void attackBlock(CCPoint point);
+    void breakBlock(CCPoint point);
 public:
     // Method 'init' in cocos2d-x returns bool, instead of 'id' in cocos2d-iphone (an object pointer)
     virtual bool init();

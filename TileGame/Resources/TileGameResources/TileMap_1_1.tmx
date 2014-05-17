@@ -22,7 +22,7 @@
   </tile>
   <tile id="3">
    <properties>
-    <property name="disperseable" value="True"/>
+    <property name="Disperseable" value="True"/>
    </properties>
   </tile>
  </tileset>
@@ -42,7 +42,7 @@
  </layer>
  <layer name="Meta" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYIAAEyhtSAOMDZigydHLXphd6P6lNcDlXxAwohKNCwwm/5IaZ+TEL8x+etuLHA/E2Ecob6DTo2AUIAMTMjAIkJKPqGGnCQ69o2AUDHcAAKN/HgA=
+   eJxjYIAAEyhtSAOMDZigydHLXphd6P6lNcDlXxAwohKNCwwm/5IaZ+TEL8x+etuLHA/UyBvo9CgYBciA3DKRlHyEDkzIxNj0joJRMNwBADqiHgo=
   </data>
  </layer>
 </map>

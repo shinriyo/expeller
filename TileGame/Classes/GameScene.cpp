@@ -92,7 +92,6 @@ bool Game::init()
 void Game::update(float delta)
 {
     // ここに記入されたモノを、定期的に呼び出す
-//    _enemy->randomWalk(_tileMap);
     _enemy->randomWalk(_meta, _tileMap);
     
     // map moving
@@ -182,6 +181,7 @@ void Game::attackBlock(CCPoint point)
             // 殴れる判定
             if (collision && (collision->compare("True") == 0)) {
                 CCLog("Attackable");
+                
                 // ブロック消す
                 //_meta->removeTileAt(tileCoord);
                 //_foreground->removeTileAt(tileCoord);
@@ -193,6 +193,12 @@ void Game::attackBlock(CCPoint point)
             }
         }
     }
+}
+
+// タイルを連鎖で壊す
+void Game::breakBlock(CCPoint point)
+{
+    
 }
 
 // タイルを赤にする
@@ -231,6 +237,7 @@ void Game::setTileEffect(CCPoint position)
             if (properties) {
                 // obstacle
                 CCString *collision = new CCString();
+                // TODO: 今後はMoveableで。
                 *collision = *properties->valueForKey("Collidable");
             
                 if (collision && (collision->compare("True") == 0)) {
@@ -244,6 +251,17 @@ void Game::setTileEffect(CCPoint position)
     }
     
     // 白に戻す
+    // まず詰める
+    /*
+      ◯は赤なので変化させない
+      |6,0|6,1|6,2|6,3|6,4|6,5|6,6|
+      |5,0|5,1|5,2|5,3|5,4|5,5|5,6|
+      |4,0|4,1|4,2|◯4,3|4,4|4,5|4,6|
+      |3,0|3,1|◯3,2|3,3|◯3,4|3,5|3,6|
+      |2,0|2,1|2,2|◯2,3|2,4|2,5|2,6|
+      |1,0|1,1|1,2|1,3|1,4|1,5|1,6|
+      |0,0|0,1|0,2|0,3|0,4|0,5|0,6|
+    */
     CCPointArray *revertPointArray = CCPointArray::create(255);
     for (int i = 0; i < 7; i++) {
         for (int j = 0; j < 7; j++) {
@@ -257,12 +275,14 @@ void Game::setTileEffect(CCPoint position)
         }
     }
 
-    for(int i = 0; i < revertPointArray->count(); i++){
+    // 詰めたものから適用
+    for(int i = 0; i < revertPointArray->count(); i++) {
         CCPoint point = revertPointArray->getControlPointAtIndex(i);
         //CCLog("(%f,%f)", point.x, point.y);
         
         CCPoint tmpTileCoord = ccp(tileCoord.x + point.x, tileCoord.y + point.y);
         
+        // 画面端はエラーになるので適用させない
         if(tmpTileCoord.x < 0 || tmpTileCoord.x > _tileMap->getMapSize().width - 1||
            tmpTileCoord.y < 0 || tmpTileCoord.y > _tileMap->getMapSize().height - 1)
         {
@@ -278,6 +298,7 @@ void Game::setTileEffect(CCPoint position)
             if (properties) {
                 // obstacle
                 CCString *collision = new CCString();
+                // TODO: 今後はMoveableとか、も行えるように。
                 *collision = *properties->valueForKey("Collidable");
                 
                 if (collision && (collision->compare("True") == 0)) {
